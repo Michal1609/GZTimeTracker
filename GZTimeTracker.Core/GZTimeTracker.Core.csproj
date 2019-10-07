@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>GZIT.GZTimeTracker.Core</RootNamespace>
+    <Authors>GZIT</Authors>
+    <Company>GZIT</Company>
+    <NeutralLanguage>en-150</NeutralLanguage>
+    <Product>Time tracker</Product>
+  </PropertyGroup>
+
+</Project>
