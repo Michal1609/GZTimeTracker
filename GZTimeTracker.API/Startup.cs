@@ -57,6 +57,8 @@ namespace GZIT.GZTimeTracker.API
             {
                 endpoints.MapControllers();
             });
+
+            
         }
     }
 }

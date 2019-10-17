@@ -7,36 +7,39 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GZIT.GZTimeTracker.Core.Infrastructure;
 using GZIT.GZTimeTracker.Infrastructure.Data;
+using Microsoft.Extensions.Logging;
+using NLog;
+using GZIT.GZTimeTracker.API.Core;
 
 namespace GZTimeTracker.API.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class TestController : ControllerBase
+    public class TestController : GZControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;        
 
-        public TestController(IUnitOfWork unitOfWork)
+        public TestController(IUnitOfWork unitOfWork, ILogger<TestController> logger)
         {
-            _unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;            
         }
 
         // GET: api/Test
         [HttpGet]
         public async Task<IActionResult> GetPersons()
-        {
+        {     
+            _logger.Error("Ja jsem z text z loggeru");
             try
-            {
+            {                
                 var persons = await _unitOfWork.ProjectRepository.GetAll();
                 return Ok(persons);
             }
             catch (Exception ex)
             {
-                //_logger.LogError($"Some error in the GetAllOwners method: {ex}");
+                _logger.Error(ex);
+                
                 return StatusCode(500, "Internal server error");
             }
-        }
-
-        
+        }        
     }
 }
