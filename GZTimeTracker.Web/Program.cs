@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace GZIT.GZTimeTracker.Web
+namespace GZTimeTracker.Web
 {
     public class Program
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace GZIT.GZTimeTracker.Web.Models
+namespace GZTimeTracker.Web.Models
 {
     public class ErrorViewModel
     {

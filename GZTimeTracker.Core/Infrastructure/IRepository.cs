@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GZIT.GZTimeTracker.Core.Infrastructure.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,7 @@ namespace GZIT.GZTimeTracker.Core.Infrastructure
         void DeleteAll();
         Task<int> Count();
 
-        IQueryable<T> EntityFromSql<T>(string sql, params object[] parameters) where T : BaseClass;
+        IQueryable<T> EntityFromSql<T>(string sql, params object[] parameters) where T : BaseEnitity;
 
         void Save();
     }

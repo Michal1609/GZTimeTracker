@@ -1,17 +1,25 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <UserSecretsId>f6e0157c-d8e9-4b04-bf1e-9d4e44ded080</UserSecretsId>
-    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
-    <RootNamespace>GZIT.GZTimeTracker.Web</RootNamespace>
-    <Authors>GZIT</Authors>
-    <Company>GZIT</Company>
-    <Product>Time tracker</Product>
+    <UserSecretsId>aspnet-GZTimeTracker.Web-E6B45C9E-AE15-4BA6-83B2-2525090944F1</UserSecretsId>
   </PropertyGroup>
 
+
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\GZTimeTracker.Core\GZTimeTracker.Core.csproj" />
+    <ProjectReference Include="..\GZTimeTracker.Infrastructure\GZTimeTracker.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

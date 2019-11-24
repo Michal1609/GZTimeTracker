@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.Extensions.Options
+@using System.Globalization;
+@using GZIT.GZTimeTracker.Core.Web
+
+@inject IOptions<RequestLocalizationOptions> LocOps
+
+@{
+    var requestCulture = CultureInfo.CurrentCulture;
+    string selectedLanguage;
+
+    var supportedCultures = LocOps.Value.SupportedUICultures
+
+        .Select(c => new SelectListItem
+        {
+            Value = $"{c.Name}",
+            Text = $"{c.DisplayName}"
+        }).ToList();
+
+    var routeData = new Dictionary<string, string>();
+
+    foreach (var r in ViewContext.RouteData.Values)
+    {
+        routeData.Add(r.Key, r.Value.ToString());
+    }
+
+    foreach (var qs in Context.Request.Query)
+    {
+        routeData.Add(qs.Key, qs.Value);
+    }
+}
+
+
+<!-- Dropdown -->
+    <li class="nav-item dropdown text-dark">
+        <a class="nav-link text-dark" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true"
+           aria-expanded="false">
+            <span class="flag-icon flag-icon-@Html.Raw(LanguageCodeToFlag.LanguageToFlag.GetValueOrDefault(requestCulture.IetfLanguageTag)) "></span>
+        </a>
+        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink1">
+            @foreach (var culture in supportedCultures)
+            {
+                var flag = LanguageCodeToFlag.LanguageToFlag.GetValueOrDefault(culture.Value);
+                if (culture.Value.ToLower() != requestCulture.Name.ToLower())
+                {
+                    <a class="dropdown-item" 
+                       asp-controller="Language" 
+                       asp-action="Changlanguge" 
+                       asp-route-selectedLanguage="@culture.Value"> 
+                        <span class="flag-icon flag-icon-@Html.Raw(flag)"></span>
+                    </a>
+                }
+            }
+         </div>
+    </li>

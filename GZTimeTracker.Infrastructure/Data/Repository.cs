@@ -1,4 +1,5 @@
 ﻿using GZIT.GZTimeTracker.Core.Infrastructure;
+using GZIT.GZTimeTracker.Core.Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GZIT.GZTimeTracker.Infrastructure.Data
 {
-    public class Repository<T> : IRepository<T> where T : BaseClass
+    public class Repository<T> : IRepository<T> where T : BaseEnitity
     {
         private DataContext _context;
         public DbSet<T> table = null;
@@ -61,7 +62,7 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
             _context.SaveChanges();
         }
 
-        public IQueryable<T1> EntityFromSql<T1>(string sql, params object[] parameters) where T1 : BaseClass
+        public IQueryable<T1> EntityFromSql<T1>(string sql, params object[] parameters) where T1 : BaseEnitity
         {
             throw new NotImplementedException();
         }
