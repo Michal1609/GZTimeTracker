@@ -7,7 +7,7 @@ namespace GZIT.GZTimeTracker.Core.Infrastructure
 {
     public interface ILocaleStringResourceRepository : IRepository<LocaleStringResourceEntity>
     {
-        string GetString(string name, string language);
+        string GetString(string name, int language);
 
         IList<LocaleStringResourceEntity> GetAllStrings();
     }

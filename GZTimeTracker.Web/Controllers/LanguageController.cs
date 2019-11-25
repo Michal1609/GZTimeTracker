@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using GZIT.GZTimeTracker.Core;
+using GZIT.GZTimeTracker.Core.Infrastructure;
 using GZIT.GZTimeTracker.Core.Web;
 using GZTimeTracker.Core.Web;
 using GZTimeTracker.Web.Framework;
@@ -16,7 +17,9 @@ namespace GZTimeTracker.Web.Controllers
     {
 
         #region Ctor
-        public LanguageController(ILanguageServices languageServices) : base(languageServices)
+        public LanguageController(
+            ILanguageServices languageServices,
+            IUnitOfWork unitOfWork) : base(languageServices, unitOfWork)
         {
 
         }

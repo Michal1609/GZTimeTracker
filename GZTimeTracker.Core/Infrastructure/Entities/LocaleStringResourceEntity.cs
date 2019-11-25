@@ -8,8 +8,8 @@ namespace GZIT.GZTimeTracker.Core.Infrastructure.Entities
     public class LocaleStringResourceEntity : BaseEnitity
     {
         [Required]
-        [MaxLength(5)]
-        public string Language { get; set; }
+        public int LanguageId { get; set; }
+        public LanguageEntity Language { get; set; }
 
         [Required]
         [MaxLength(256)]

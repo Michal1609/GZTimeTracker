@@ -137,9 +137,11 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Code")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -154,10 +156,8 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Language")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(5)")
-                        .HasMaxLength(5);
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -169,7 +169,7 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Language", "Name");
+                    b.HasIndex("LanguageId", "Name");
 
                     b.ToTable("LocaleStringResource");
                 });
@@ -261,17 +261,17 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("MemberId")
+                    b.Property<int?>("MemberId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OwnerId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("MemberId");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Team");
                 });
@@ -298,6 +298,9 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
 
                     b.Property<byte[]>("PasswordSalt")
                         .HasColumnType("varbinary(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -520,6 +523,15 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.LocaleStringResourceEntity", b =>
+                {
+                    b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.LanguageEntity", "Language")
+                        .WithMany("LocaleStringResources")
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.ProjectEntity", b =>
                 {
                     b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.ClientEntity", "Client")
@@ -553,13 +565,11 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                 {
                     b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.UserEntity", "Member")
                         .WithMany()
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MemberId");
 
-                    b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.UserEntity", "Owner")
+                    b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.UserEntity", "User")
                         .WithMany("Team")
-                        .HasForeignKey("OwnerId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

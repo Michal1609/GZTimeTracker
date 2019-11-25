@@ -46,5 +46,17 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
             return user;
 
         }
+
+        public UserEntity GetUserByUserId(Guid userId)
+        {
+            if (userId == null)
+                return null;
+
+            var user = (from row in table
+                        where row.UserId == userId
+                        select row).FirstOrDefault();
+
+            return user;
+        }
     }
 }

@@ -6,11 +6,9 @@ using System.Text;
 namespace GZIT.GZTimeTracker.Core.Infrastructure.Entities
 {
     public class TeamEntity : BaseEnitity
-    {
-        [Required]
-        public UserEntity Owner { get; set; }
+    {        
+        public UserEntity User { get; set; }
         
-        [Required]
         public UserEntity Member { get; set; }
     }
 }

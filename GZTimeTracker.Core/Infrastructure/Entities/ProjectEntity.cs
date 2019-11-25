@@ -24,6 +24,8 @@ namespace GZIT.GZTimeTracker.Core.Infrastructure.Entities
 
         public ICollection<TaskEntity> Tasks { get; set; }
 
+        public ICollection<UsersOnProjectEntity> UsersOnProject { get; set; }
+
         //public ICollection<int> 
     }
 }

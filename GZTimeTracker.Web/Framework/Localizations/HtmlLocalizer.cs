@@ -40,7 +40,8 @@ namespace GZTimeTracker.Web.Framework.Localizations
 
         public LocalizedString GetString(string name)
         {
-            var value =_unitOfWork.LocaleStringResourceRepository.GetString(name, CultureInfo.CurrentUICulture.Name);
+            
+            var value =_unitOfWork.LocaleStringResourceRepository.GetString(name, WebWorker.GetLanguageIdForCode(CultureInfo.CurrentUICulture.Name));
             if (value == null)
                 value = name;
             return new LocalizedString(name, value);

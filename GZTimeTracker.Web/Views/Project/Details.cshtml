@@ -1,0 +1,57 @@
+﻿@model GZTimeTracker.Web.Models.ProjectModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@{
+    string edit = @Localizer["Project.Edit"].Value;
+
+}
+
+<div>
+    <h2>@Localizer["Project.ProjectDetail"]</h2>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Code)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Code)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StarTimeUTC)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StarTimeUTC)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EndTimeUTC)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EndTimeUTC)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink(Localizer["Project.Edit"].Value, "Edit", new { Model.Id }) |
+    <a asp-action="Index">@Localizer["BackToList"]</a>
+</div>

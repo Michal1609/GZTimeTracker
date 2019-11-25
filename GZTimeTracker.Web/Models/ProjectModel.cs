@@ -10,26 +10,27 @@ namespace GZTimeTracker.Web.Models
     {
         //[Display(Name ="Owner")]
         //public UserModel Owner { get; set; }
+        public int Id { get; set; }
 
-        [Display(Name = "Name")]
+        [Display(Name = "ProjectModel.Name")]
         public string Name { get; set; }
 
-        [Display(Name = "Code")]
+        [Display(Name = "ProjectModel.Code")]
         public string Code { get; set; }
 
-        [Display(Name = "Description")]
+        [Display(Name = "ProjectModel.Description")]
         public string Description { get; set; }
 
-        [Display(Name = "StarTimeUTC")]
+        [Display(Name = "ProjectModel.StarTimeUTC")]
         public DateTime StarTimeUTC { get; set; }
 
-        [Display(Name = "EndTimeUTC")]
+        [Display(Name = "ProjectModel.EndTimeUTC")]
         public DateTime EndTimeUTC { get; set; }
 
         //[Display(Name = "Client")]
         //public ClientModel Client { get; set; }
 
-        //[Display(Name = "Tasks")]
-        //public ICollection<TaskModel> Tasks { get; set; }
+        [Display(Name = "ProjectModel.Tasks")]
+        public IList<TaskModel> Tasks { get; set; }
     }
 }

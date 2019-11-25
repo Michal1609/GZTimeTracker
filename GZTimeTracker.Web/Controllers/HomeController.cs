@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using GZTimeTracker.Web.Models;
 using GZTimeTracker.Web.Framework;
 using GZIT.GZTimeTracker.Core.Web;
+using GZIT.GZTimeTracker.Core.Infrastructure;
 
 namespace GZTimeTracker.Web.Controllers
 {
@@ -16,7 +17,9 @@ namespace GZTimeTracker.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         
 
-        public HomeController(ILanguageServices languageServices) : base(languageServices)
+        public HomeController(
+            ILanguageServices languageServices,
+            IUnitOfWork unitOfWork) : base(languageServices, unitOfWork)
         {
             //_logger = logger;            
         }

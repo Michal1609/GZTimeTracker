@@ -3,15 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29324.140
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GZTimeTracker.Test", "Test_NUnit\GZTimeTracker.Test.csproj", "{FCEB625B-D32D-4B98-A25E-78513D09F7AE}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GZTimeTracker.API", "GZTimeTracker.API\GZTimeTracker.API.csproj", "{5C2CA6B6-5E20-446A-911B-CF6718991618}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GZTimeTracker.Core", "GZTimeTracker.Core\GZTimeTracker.Core.csproj", "{5ACFD2E5-40B9-436B-9F72-5DCA8E302E54}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GZTimeTracker.Infrastructure", "GZTimeTracker.Infrastructure\GZTimeTracker.Infrastructure.csproj", "{D4768499-8B9A-4F47-9823-1F7D6A7D6096}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GZTimeTracker.Web", "GZTimeTracker.Web\GZTimeTracker.Web.csproj", "{A605BD7A-B01A-492F-8705-5B32C32F5A79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GZTimeTracker.Web", "GZTimeTracker.Web\GZTimeTracker.Web.csproj", "{A605BD7A-B01A-492F-8705-5B32C32F5A79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FCEB625B-D32D-4B98-A25E-78513D09F7AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FCEB625B-D32D-4B98-A25E-78513D09F7AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FCEB625B-D32D-4B98-A25E-78513D09F7AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FCEB625B-D32D-4B98-A25E-78513D09F7AE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5C2CA6B6-5E20-446A-911B-CF6718991618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C2CA6B6-5E20-446A-911B-CF6718991618}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C2CA6B6-5E20-446A-911B-CF6718991618}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C2CA6B6-5E20-446A-911B-CF6718991618}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5ACFD2E5-40B9-436B-9F72-5DCA8E302E54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5ACFD2E5-40B9-436B-9F72-5DCA8E302E54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5ACFD2E5-40B9-436B-9F72-5DCA8E302E54}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -9,11 +9,11 @@ namespace GZIT.GZTimeTracker.Core.Infrastructure
     public interface IUnitOfWork
     {
         IUserRepository UserRepository { get; }
-        IRepository<ProjectEntity> ProjectRepository { get; }
+        IProjectRepository ProjectRepository { get; }
         IRepository<RoleEntity> RoleRepository { get; }
         IRepository<TeamEntity> TeamRepository { get; }
-        IRepository<ClientEntity> ClientRepository { get; }
-        IRepository<TaskEntity> TaskRepository { get; }
+        IClientRepository ClientRepository { get; }
+        ITaskRepository TaskRepository { get; }
         IRepository<ActionEntity> ActionRepository { get; }
         ILocaleStringResourceRepository LocaleStringResourceRepository { get; }
         IRepository<LanguageEntity> LanguageRepository { get; }

@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GZTimeTracker.API\GZTimeTracker.API.csproj" />
     <ProjectReference Include="..\GZTimeTracker.Infrastructure\GZTimeTracker.Infrastructure.csproj" />
   </ItemGroup>
 

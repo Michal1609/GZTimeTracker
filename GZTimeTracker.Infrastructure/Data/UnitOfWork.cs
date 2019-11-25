@@ -12,12 +12,12 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
         private DataContext _context;
         private IUserRepository _userRepository;
         private ILocaleStringResourceRepository _localeStringResourceRepository;
-        private IRepository<ProjectEntity> _projectRepository;
+        private IProjectRepository _projectRepository;
         private IRepository<RoleEntity> _roleRepository;
         private IRepository<TeamEntity> _teamRepository;
         private IRepository<ActionEntity> _actionRepository;
-        private IRepository<ClientEntity> _clientRepository;
-        private IRepository<TaskEntity> _taskRepository;
+        private IClientRepository _clientRepository;
+        private ITaskRepository _taskRepository;
         private IRepository<LanguageEntity> _languageRepository;
 
         public UnitOfWork(DataContext context)
@@ -37,13 +37,13 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
             }
         }
 
-        public IRepository<ProjectEntity> ProjectRepository
+        public IProjectRepository ProjectRepository
         {
             get
             {
                 if (_projectRepository == null)
                 {
-                    _projectRepository = new Repository<ProjectEntity>(_context);
+                    _projectRepository = new ProjectRepository(_context);
                 }
                 return _projectRepository;
             }
@@ -85,25 +85,25 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
             }
         }
 
-        public IRepository<ClientEntity> ClientRepository
+        public IClientRepository ClientRepository
         {
             get
             {
                 if (_clientRepository == null)
                 {
-                    _clientRepository = new Repository<ClientEntity>(_context);
+                    _clientRepository = new ClientRepository(_context);
                 }
                 return _clientRepository;
             }
         }
 
-        public IRepository<TaskEntity> TaskRepository
+        public ITaskRepository TaskRepository
         {
             get
             {
                 if (_taskRepository == null)
                 {
-                    _taskRepository = new Repository<TaskEntity>(_context);
+                    _taskRepository = new TaskRepository(_context);
                 }
                 return _taskRepository;
             }

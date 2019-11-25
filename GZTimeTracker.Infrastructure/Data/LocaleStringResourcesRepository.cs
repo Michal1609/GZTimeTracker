@@ -3,7 +3,6 @@ using GZIT.GZTimeTracker.Core.Infrastructure.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace GZIT.GZTimeTracker.Infrastructure.Data
 {
     public class LocaleStringResourcesRepository : Repository<LocaleStringResourceEntity>, ILocaleStringResourceRepository
@@ -19,11 +18,11 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
             return table.ToList();
         }
 
-        public string GetString(string name, string language)
+        public string GetString(string name, int language)
         {
             var value = (from row in table
                          where row.Name == name &&
-                               row.Language == language
+                               row.Language.Id == language
                          select row.Value).FirstOrDefault();
 
             return value;

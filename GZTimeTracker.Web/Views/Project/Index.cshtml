@@ -5,12 +5,15 @@
 @inject IViewLocalizer Localizer
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
 
-@{
-
-    ViewData["Title"] = Localizer["Project"];
+@{ 
+    string edit = @Localizer["Project.Edit"].Value;
+    string delete = @Localizer["Project.Delete"].Value;
+    string details = @Localizer["Project.Details"].Value;
 }
+
+<h2>@Localizer["Project.ProjectList"]</h2>
 <p>
-    <a asp-action="Create">@ViewData["CreateProject"]</a>
+    <a asp-action="Create">@Localizer["CreateProject"]</a>
 </p>
 <table class="table">
     <thead>
@@ -52,10 +55,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.EndTimeUTC)
                 </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <td>                    
+                    @Html.ActionLink(edit, "Edit", new { id = item.Id }) |
+                    @Html.ActionLink(details, "Details", new { id = item.Id }) |
+                    @Html.ActionLink(delete, "Delete", new { id=item.Id })
                 </td>
             </tr>
         }

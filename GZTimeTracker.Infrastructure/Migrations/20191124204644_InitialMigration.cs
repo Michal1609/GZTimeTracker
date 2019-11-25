@@ -66,11 +66,26 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Language",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Language", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<Guid>(nullable: false),
                     Email = table.Column<string>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
@@ -189,6 +204,27 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LocaleStringResource",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LanguageId = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(maxLength: 256, nullable: false),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LocaleStringResource", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LocaleStringResource_Language_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Language",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Client",
                 columns: table => new
                 {
@@ -237,8 +273,8 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OwnerId = table.Column<int>(nullable: false),
-                    MemberId = table.Column<int>(nullable: false)
+                    UserId = table.Column<int>(nullable: false),
+                    MemberId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -248,10 +284,10 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                         column: x => x.MemberId,
                         principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Team_User_OwnerId",
-                        column: x => x.OwnerId,
+                        name: "FK_Team_User_UserId",
+                        column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -395,6 +431,11 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_LocaleStringResource_LanguageId_Name",
+                table: "LocaleStringResource",
+                columns: new[] { "LanguageId", "Name" });
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Project_ClientId",
                 table: "Project",
                 column: "ClientId");
@@ -420,9 +461,9 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                 column: "MemberId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Team_OwnerId",
+                name: "IX_Team_UserId",
                 table: "Team",
-                column: "OwnerId");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -449,6 +490,9 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                 name: "ExceptionLog");
 
             migrationBuilder.DropTable(
+                name: "LocaleStringResource");
+
+            migrationBuilder.DropTable(
                 name: "Task");
 
             migrationBuilder.DropTable(
@@ -462,6 +506,9 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Language");
 
             migrationBuilder.DropTable(
                 name: "Project");

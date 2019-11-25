@@ -32,16 +32,18 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
         public DbSet<TeamEntity> Team { get; set; }
         public DbSet<LocaleStringResourceEntity> LocaleStringResource { get; set; }
         public DbSet<LanguageEntity> Language { get; set; }
+        public DbSet<UsersOnProjectEntity> UsersOnProjects { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
+           
 
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+                        
 
             modelBuilder.Entity<UserEntity>()
                 .HasMany(a => a.Projets)
@@ -51,11 +53,25 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
 
             modelBuilder.Entity<UserEntity>()
                 .HasMany(a => a.Team)
-                .WithOne(e => e.Owner)
-                .IsRequired();
+                .WithOne(e => e.User)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<LocaleStringResourceEntity>()
-                .HasIndex(i => new { i.Language, i.Name });                
+                .HasIndex(i => new { i.LanguageId, i.Name });
+
+            modelBuilder.Entity<UsersOnProjectEntity>()
+                .HasOne(a => a.Project)
+                .WithMany(p => p.UsersOnProject)
+                .HasForeignKey(a => a.ProjectId);
+
+            modelBuilder.Entity<UsersOnProjectEntity>()
+                .HasOne(a => a.User)
+                .WithMany(a => a.UsersOnProjects)
+                .HasForeignKey(a => a.UserId);
+
+            modelBuilder.Entity<UsersOnProjectEntity>()
+                .HasKey(o => new { o.ProjectId, o.UserId });
 
 
             modelBuilder.Entity<ActionEntity>().HasData(
@@ -63,7 +79,10 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
                 new ActionEntity() { Id = 2, Entity = "Project", Privilegia = "Read" , Description = "Only readign" },
                 new ActionEntity() { Id =3, Entity = "Project", Privilegia = "Update", Description = "Full privilegia withou delete" }
                 );
-
+            
+            modelBuilder.Entity<LanguageEntity>().HasData(
+                new LanguageEntity() { Id = 1, Code = "cs", Name = "Čeština" });
+   
         }
 
     }

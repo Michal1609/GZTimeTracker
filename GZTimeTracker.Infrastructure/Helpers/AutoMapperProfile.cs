@@ -11,7 +11,7 @@ namespace GZIT.GZTimeTracker.Infrastructure.Helpers
     {
         public AutoMapperProfile()
         {
-            CreateMap<RegisterModel, UserEntity>();
+            CreateMap<RegisterModel, UserEntity>();            
         }
     }
 }

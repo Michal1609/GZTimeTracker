@@ -8,6 +8,9 @@ namespace GZIT.GZTimeTracker.Core.Infrastructure.Entities
     public class UserEntity : BaseEnitity
     {
         [Required]
+        public Guid UserId { get; set; }
+
+        [Required]
         public string Email { get; set; }
 
         public string FirstName { get; set; }
@@ -24,5 +27,7 @@ namespace GZIT.GZTimeTracker.Core.Infrastructure.Entities
         public ICollection<TeamEntity> Team { get; set; }
 
         public ICollection<ClientEntity> Clients { get; set; }
+
+        public ICollection<UsersOnProjectEntity> UsersOnProjects { get; set; }
     }
 }

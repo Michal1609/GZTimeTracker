@@ -12,6 +12,6 @@ namespace GZIT.GZTimeTracker.Core.Infrastructure
 
         UserEntity Authenticate(string username, string password);
 
-
+        UserEntity GetUserByUserId(Guid userId);
     }
 }

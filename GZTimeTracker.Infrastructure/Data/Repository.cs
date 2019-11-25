@@ -37,8 +37,16 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
 
         public void Update(T obj)
         {
-            table.Attach(obj);
-            _context.Entry(obj).State = EntityState.Modified;
+            try
+            {
+                
+                table.Attach(obj);
+                _context.Entry(obj).State = EntityState.Modified;
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
 
         public void Delete(int id)

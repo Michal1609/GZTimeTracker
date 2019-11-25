@@ -24,6 +24,9 @@ using Microsoft.Extensions.Localization;
 using GZTimeTracker.Core.Web;
 using GZIT.GZTimeTracker.Core.Web;
 using GZTimeTracker.Web.Framework.Localizations;
+using GZTimeTracker.Web.Framework;
+using AutoMapper;
+using GZIT.GZTimeTracker.Web.Framwork.Mapping;
 
 namespace GZTimeTracker.Web
 {
@@ -42,10 +45,8 @@ namespace GZTimeTracker.Web
 
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Singleton, ServiceLifetime.Singleton);
-
-            //services.AddScoped<ILocaleStringResourceRepository, LocaleStringResourcesRepository>();
-            //services.AddScoped<IUserRepository, UserRepository>();
+                    Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Singleton, ServiceLifetime.Singleton); 
+            
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -56,21 +57,17 @@ namespace GZTimeTracker.Web
             services.AddMvc().AddViewLocalization().AddDataAnnotationsLocalization();
             services.AddHttpContextAccessor();
 
-            // Get allowed languages   
-            
-            
+            // Get allowed languages            
             var context = services.BuildServiceProvider().GetService<DataContext>();
             var languages = context.Language.ToList();
+            WebWorker.InstalledLanguages = languages;
             CultureInfo[] cultureInfos = new CultureInfo[languages.Count];
             for (int i = 0; i < languages.Count; i++)
             {
                 cultureInfos[i] = new CultureInfo(languages[i].Code);
             }
-            /*
-            var cultureCs = new CultureInfo("CS");
-            var cultureEn = new CultureInfo("EN");
-            var supportedCultures = new[] { cultureEn, cultureCs };
-            */
+       
+
             services.Configure<RequestLocalizationOptions>(options =>
             {
                 options.SupportedCultures = cultureInfos;
@@ -82,7 +79,16 @@ namespace GZTimeTracker.Web
             services.AddScoped<ICookiesServices, Framework.Cookies.CookiesServices>();
             services.AddScoped<ILanguageServices, LanguageServices>();
             services.AddScoped<IHtmlLocalizerFactory, Framework.Localizations.HtmlLocalizerFactory>();
-            
+
+            // Auto Mapper Configurations
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapperProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
 
         }
 
@@ -116,7 +122,15 @@ namespace GZTimeTracker.Web
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-            
+
+            /*
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
+                context.Database.Migrate();
+            }
+            */
+
         }
     }
 }
