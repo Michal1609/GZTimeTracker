@@ -63,15 +63,17 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
             modelBuilder.Entity<UsersOnProjectEntity>()
                 .HasOne(a => a.Project)
                 .WithMany(p => p.UsersOnProject)
-                .HasForeignKey(a => a.ProjectId);
+                .HasForeignKey(a => a.ProjectId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<UsersOnProjectEntity>()
                 .HasOne(a => a.User)
                 .WithMany(a => a.UsersOnProjects)
-                .HasForeignKey(a => a.UserId);
+                .HasForeignKey(a => a.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<UsersOnProjectEntity>()
-                .HasKey(o => new { o.ProjectId, o.UserId });
+                .HasIndex(o => new { o.ProjectId, o.UserId }).IsUnique();         
 
 
             modelBuilder.Entity<ActionEntity>().HasData(
