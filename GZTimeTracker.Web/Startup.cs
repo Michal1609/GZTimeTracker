@@ -28,6 +28,8 @@ using GZTimeTracker.Web.Framework;
 using AutoMapper;
 using GZIT.GZTimeTracker.Web.Framwork.Mapping;
 using GZTimeTracker.Web.Framework.Role;
+using GZIT.GZTimeTracker.Core.Infrastructure.Services;
+using GZIT.GZTimeTracker.Infrastructure.Services;
 
 namespace GZTimeTracker.Web
 {
@@ -42,7 +44,8 @@ namespace GZTimeTracker.Web
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {          
+        {
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(
@@ -90,6 +93,7 @@ namespace GZTimeTracker.Web
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
             services.AddSingleton<IRoleServices, RoleServices>();
+            services.AddSingleton<IEmailSender, EmailSender>();
 
 
         }

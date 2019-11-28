@@ -15,19 +15,23 @@ using System.Security.Claims;
 using GZTimeTracker.Web.Models.ViewModels;
 using GZTimeTracker.Web.Framework.Repositories;
 using GZIT.GZTimeTracker.Core.Domain;
+using GZIT.GZTimeTracker.Infrastructure.Services;
 
 namespace GZTimeTracker.Web.Controllers
 {
     public class ProjectController : BaseController
     {        
         private readonly IMapper _mapper;
+        private readonly IEmailSender _emailSender;
         public ProjectController(
             ILanguageServices languageServices,
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            IRoleServices roleServices) : base(languageServices, unitOfWork, roleServices) 
+            IRoleServices roleServices,
+            IEmailSender emailSender) : base(languageServices, unitOfWork, roleServices) 
         {        
             _mapper = mapper;
+            _emailSender = emailSender;
         }
        
         [HttpGet]
@@ -167,7 +171,8 @@ namespace GZTimeTracker.Web.Controllers
         }
 
         public IActionResult Details(int id)
-        {
+        {          
+
             var owner = GetUser();
             if (owner == null)
                 return BadRequest("Nepřihlášený uživatel");
