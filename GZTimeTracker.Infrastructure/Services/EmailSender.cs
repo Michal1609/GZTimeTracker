@@ -49,10 +49,9 @@ namespace GZIT.GZTimeTracker.Infrastructure.Services
                     if (_env.IsDevelopment())
                     {
                         // The third parameter is useSSL (true if the client should make an SSL-wrapped
-                        // connection to the server; otherwise, false).                        
+                        // connection to the server; otherwise, false). 
                         
-                        client.Connect(_emailSettings.MailServer, _emailSettings.MailPort, true);
-                        //await client.ConnectAsync(_emailSettings.MailServer, _emailSettings.MailPort, true);
+                        await client.ConnectAsync(_emailSettings.MailServer, _emailSettings.MailPort, true);
                     }
                     else
                     {
