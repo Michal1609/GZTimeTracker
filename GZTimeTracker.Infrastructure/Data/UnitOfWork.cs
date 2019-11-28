@@ -1,5 +1,7 @@
 ﻿using GZIT.GZTimeTracker.Core.Infrastructure;
 using GZIT.GZTimeTracker.Core.Infrastructure.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,20 +11,25 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
 {
     public class UnitOfWork : IUnitOfWork
     {
+        private IDbContextTransaction _transaction;
+
         private DataContext _context;
         private IUserRepository _userRepository;
         private ILocaleStringResourceRepository _localeStringResourceRepository;
-        private IProjectRepository _projectRepository;
-        private IRepository<RoleEntity> _roleRepository;
+        private IProjectRepository _projectRepository;       
         private IRepository<TeamEntity> _teamRepository;
         private IRepository<ActionEntity> _actionRepository;
         private IClientRepository _clientRepository;
         private ITaskRepository _taskRepository;
         private IRepository<LanguageEntity> _languageRepository;
+        private IRepository<RoleActionsEntity> _roleActionsRepository;
+        private IRoleRepository _roleRepository;
+        private IRepository<SystemRoleEntity> _systemRoleRepositoryRepository;
+        private IRepository<SystemRoleActionsEntity> _systemRoleAction;
 
         public UnitOfWork(DataContext context)
         {
-            _context = context;
+            _context = context;            
         }
 
         public IUserRepository UserRepository
@@ -49,17 +56,19 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
             }
         }
 
-        public IRepository<RoleEntity> RoleRepository
+        
+        public IRoleRepository RoleRepository
         {
             get
             {
                 if (_roleRepository == null)
                 {
-                    _roleRepository = new Repository<RoleEntity>(_context);
+                    _roleRepository = new RoleRepository(_context);
                 }
                 return _roleRepository;
             }
         }
+        
 
         public IRepository<TeamEntity> TeamRepository
         {
@@ -133,9 +142,69 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
             }
         }
 
+        public IRepository<RoleActionsEntity> RoleActionsRepository
+        {
+            get
+            {
+                if (_roleActionsRepository == null)
+                {
+                    _roleActionsRepository = new Repository<RoleActionsEntity>(_context);
+                }
+                return _roleActionsRepository;
+            }
+        }
+
+        public IRepository<SystemRoleEntity> SystemRoleRepository
+        {
+            get
+            {
+                if (_systemRoleRepositoryRepository == null)
+                {
+                    _systemRoleRepositoryRepository = new Repository<SystemRoleEntity>(_context);
+                }
+                return _systemRoleRepositoryRepository;
+            }
+        }
+
+        public IRepository<SystemRoleActionsEntity> SystemRoleActionsRepository
+        {
+            get
+            {
+                if (_systemRoleAction == null)
+                {
+                    _systemRoleAction = new Repository<SystemRoleActionsEntity>(_context);
+                }
+                return _systemRoleAction;
+            }
+        }
+
         public void Save()
         {
             _context.SaveChanges();
+        }
+
+        public void BeginTransaction()
+        {
+            _transaction = _context.Database.BeginTransaction();
+        }
+
+        public void Commit()
+        {
+            try
+            {
+                Save();
+                _transaction.Commit();
+            }
+            finally
+            {
+                _transaction.Dispose();
+            }
+        }
+
+        public void Rollback()
+        {
+            _transaction.Rollback();
+            _transaction.Dispose();
         }
 
         private bool disposed = false;

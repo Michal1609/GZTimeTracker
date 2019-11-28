@@ -21,7 +21,8 @@ namespace GZTimeTracker.Web.Controllers
         public ClientController(
             ILanguageServices languageServices,
             IUnitOfWork unitOfWork,
-            IMapper mapper) : base(languageServices, unitOfWork)
+            IMapper mapper,
+            IRoleServices roleServices) : base(languageServices, unitOfWork, roleServices)
         {
             _mapper = mapper;
         }

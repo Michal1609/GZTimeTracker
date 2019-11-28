@@ -10,13 +10,20 @@ namespace GZIT.GZTimeTracker.Core.Infrastructure
     {
         IUserRepository UserRepository { get; }
         IProjectRepository ProjectRepository { get; }
-        IRepository<RoleEntity> RoleRepository { get; }
+        //IRoleRepository RoleRepository { get; }
         IRepository<TeamEntity> TeamRepository { get; }
         IClientRepository ClientRepository { get; }
         ITaskRepository TaskRepository { get; }
         IRepository<ActionEntity> ActionRepository { get; }
         ILocaleStringResourceRepository LocaleStringResourceRepository { get; }
         IRepository<LanguageEntity> LanguageRepository { get; }
+        IRoleRepository RoleRepository { get; }
+        IRepository<SystemRoleEntity> SystemRoleRepository { get; }
+        IRepository<SystemRoleActionsEntity> SystemRoleActionsRepository { get; }
+
+        void BeginTransaction();
+        void Commit();
+        void Rollback();
         void Save();
 
     }

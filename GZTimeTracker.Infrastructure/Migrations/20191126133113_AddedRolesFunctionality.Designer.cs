@@ -4,14 +4,16 @@ using GZIT.GZTimeTracker.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GZIT.GZTimeTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191126133113_AddedRolesFunctionality")]
+    partial class AddedRolesFunctionality
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,11 +28,13 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Action")
-                        .IsRequired()
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Entity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Privilegia")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -62,49 +66,6 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Client");
-                });
-
-            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.CustomerRoleActionsEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ActionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CustomerRoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ActionId");
-
-                    b.HasIndex("CustomerRoleId");
-
-                    b.ToTable("CustomerRoleActions");
-                });
-
-            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.CustomerRolesEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("CustomerRoles");
                 });
 
             modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.ExceptionlogEntity", b =>
@@ -194,7 +155,7 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ClientId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<string>("Code")
@@ -224,29 +185,27 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                     b.ToTable("Project");
                 });
 
-            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.SystemRoleActionsEntity", b =>
+            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.RoleActionsEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ActionId")
-                        .HasColumnType("int");
+                    b.Property<string>("Action")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SystemRoleId")
+                    b.Property<int>("RoleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ActionId");
+                    b.HasIndex("RoleId");
 
-                    b.HasIndex("SystemRoleId");
-
-                    b.ToTable("SystemRoleActions");
+                    b.ToTable("RoleActions");
                 });
 
-            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.SystemRoleEntity", b =>
+            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.RoleEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -254,17 +213,14 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("SystemRoles");
+                    b.ToTable("Role");
                 });
 
             modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.TaskEntity", b =>
@@ -340,15 +296,12 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.UserInRoleEntity", b =>
+            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.UserProjectRoleEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("IsSystemRole")
-                        .HasColumnType("bit");
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
@@ -363,9 +316,42 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
 
                     b.HasIndex("ProjectId");
 
+                    b.HasIndex("RoleId");
+
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserInRoles");
+                    b.ToTable("UserProjectRoles");
+                });
+
+            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.UsersOnProjectEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsProjecOwner")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("ProjectId", "UserId")
+                        .IsUnique();
+
+                    b.ToTable("UsersOnProjects");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -577,30 +563,6 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.CustomerRoleActionsEntity", b =>
-                {
-                    b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.ActionEntity", "Action")
-                        .WithMany("CustomerRoleActions")
-                        .HasForeignKey("ActionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.CustomerRolesEntity", "CustomerRole")
-                        .WithMany("CustomerRoleActions")
-                        .HasForeignKey("CustomerRoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.CustomerRolesEntity", b =>
-                {
-                    b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.UserEntity", "User")
-                        .WithMany("CustomerRoles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.LocaleStringResourceEntity", b =>
                 {
                     b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.LanguageEntity", "Language")
@@ -623,17 +585,11 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.SystemRoleActionsEntity", b =>
+            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.RoleActionsEntity", b =>
                 {
-                    b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.ActionEntity", "Action")
-                        .WithMany("SystemRoleActions")
-                        .HasForeignKey("ActionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.SystemRoleEntity", "SystemRole")
-                        .WithMany("SystemRoleActions")
-                        .HasForeignKey("SystemRoleId")
+                    b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.RoleEntity", "Role")
+                        .WithMany("RoleActions")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -660,16 +616,43 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.UserInRoleEntity", b =>
+            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.UserProjectRoleEntity", b =>
                 {
                     b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.ProjectEntity", "Project")
-                        .WithMany("UserInRoles")
+                        .WithMany()
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.RoleEntity", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.UserEntity", "User")
+                        .WithMany("UserProjectRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.UsersOnProjectEntity", b =>
+                {
+                    b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.ProjectEntity", "Project")
+                        .WithMany("UsersOnProject")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.RoleEntity", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.UserEntity", "User")
-                        .WithMany("UserInRoles")
+                        .WithMany("UsersOnProjects")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();

@@ -20,12 +20,12 @@ namespace GZIT.GZTimeTracker.Core.Infrastructure.Entities
 
         public DateTime EndTimeUTC { get; set; }
 
+        public int? ClientId { get; set; }
         public ClientEntity Client { get; set; }
 
         public ICollection<TaskEntity> Tasks { get; set; }
 
-        public ICollection<UsersOnProjectEntity> UsersOnProject { get; set; }
+        public ICollection<UserInRoleEntity> UserInRoles { get; set; }
 
-        //public ICollection<int> 
     }
 }

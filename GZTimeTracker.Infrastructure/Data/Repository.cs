@@ -25,14 +25,20 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
             return await table.ToListAsync();         
         }
 
-        public Task<T> GetById(int id)
-        {
+        public Task<T> GetByIdAsync(int id)
+        {     
             return table.FirstAsync(x => x.Id == id);            
         }
 
-        public void Insert(T obj)
+        public T GetById(int id)
+        {            
+            return table.FirstOrDefault(x => x.Id == id);
+        }
+
+        public T Insert(T obj)
         {
             table.Add(obj);
+            return obj;
         }
 
         public void Update(T obj)
@@ -70,6 +76,10 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
             _context.SaveChanges();
         }
 
+        public void RunRawSql(string sql)
+        {
+            _context.Database.ExecuteSqlRaw(sql);
+        }
         public IQueryable<T1> EntityFromSql<T1>(string sql, params object[] parameters) where T1 : BaseEnitity
         {
             throw new NotImplementedException();

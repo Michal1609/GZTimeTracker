@@ -11,6 +11,7 @@ using GZIT.GZTimeTracker.Core.Web;
 using GZTimeTracker.Core.Web;
 using GZTimeTracker.Web.Framework;
 using Microsoft.AspNetCore.Mvc;
+using GZIT.GZTimeTracker.Core.Domain;
 
 namespace GZTimeTracker.Web.Controllers
 {
@@ -19,12 +20,15 @@ namespace GZTimeTracker.Web.Controllers
     {        
         protected readonly ILanguageServices _languageServices;
         protected readonly IUnitOfWork _unitOfWork;
+        protected readonly IRoleServices _roleServices;
         public BaseController(
             ILanguageServices languageServices,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            IRoleServices roleServices)
         {            
             _languageServices = languageServices;
             _unitOfWork = unitOfWork;
+            _roleServices = roleServices;
             SetPageAndCookiesLanguage();
         }
 
@@ -41,6 +45,12 @@ namespace GZTimeTracker.Web.Controllers
                 return null;
 
             return _unitOfWork.UserRepository.GetUserByUserId(Guid.Parse(userId));
+        }
+
+        protected bool HasUserPrivilegia(int userId, int projectId, string action)
+        {
+            return _roleServices.HasUserPrivilegia(userId, projectId, action);
+                       
         }
     }
 }

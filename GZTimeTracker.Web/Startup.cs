@@ -27,6 +27,7 @@ using GZTimeTracker.Web.Framework.Localizations;
 using GZTimeTracker.Web.Framework;
 using AutoMapper;
 using GZIT.GZTimeTracker.Web.Framwork.Mapping;
+using GZTimeTracker.Web.Framework.Role;
 
 namespace GZTimeTracker.Web
 {
@@ -88,6 +89,7 @@ namespace GZTimeTracker.Web
 
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
+            services.AddSingleton<IRoleServices, RoleServices>();
 
 
         }

@@ -19,7 +19,8 @@ namespace GZTimeTracker.Web.Controllers
         #region Ctor
         public LanguageController(
             ILanguageServices languageServices,
-            IUnitOfWork unitOfWork) : base(languageServices, unitOfWork)
+            IUnitOfWork unitOfWork,
+            IRoleServices roleServices) : base(languageServices, unitOfWork, roleServices)
         {
 
         }

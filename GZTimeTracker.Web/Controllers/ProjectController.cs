@@ -12,19 +12,20 @@ using GZTimeTracker.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using GZTimeTracker.Web.Models.ViewModels;
+using GZTimeTracker.Web.Framework.Repositories;
+using GZIT.GZTimeTracker.Core.Domain;
 
 namespace GZTimeTracker.Web.Controllers
 {
     public class ProjectController : BaseController
-    {
-        
+    {        
         private readonly IMapper _mapper;
-     
-
         public ProjectController(
             ILanguageServices languageServices,
             IUnitOfWork unitOfWork,
-            IMapper mapper) : base(languageServices, unitOfWork) 
+            IMapper mapper,
+            IRoleServices roleServices) : base(languageServices, unitOfWork, roleServices) 
         {        
             _mapper = mapper;
         }
@@ -59,7 +60,13 @@ namespace GZTimeTracker.Web.Controllers
         {
             if (projectModel is null)
                 return View();
+            
+            ProjectRepository projectRepository = new ProjectRepository(_unitOfWork, _mapper);
+            
+            projectRepository.CreateProject(projectModel, GetUser());
 
+            return RedirectToAction(nameof(Index));
+            
             var project = _mapper.Map<ProjectEntity>(projectModel);
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -94,6 +101,11 @@ namespace GZTimeTracker.Web.Controllers
             if (owner == null)
                 return BadRequest("Nepřihlášený uživatel");
 
+            if (!HasUserPrivilegia(owner.Id, id, ActionsPrivilegia.ProjectEdit))
+            {
+                return BadRequest("Nedostatečná oprávnění");
+            }
+
             // Get project
             var projectEntity = _unitOfWork.ProjectRepository.GetProjectForOwner(id, owner);
             var projectModel = _mapper.Map<ProjectModel>(projectEntity);
@@ -101,26 +113,38 @@ namespace GZTimeTracker.Web.Controllers
             // Get tasks for project
             var tasksEntity = _unitOfWork.TaskRepository.GetAllForProject(projectEntity); 
             projectModel.Tasks = _mapper.Map<IList<TaskModel>>(tasksEntity);
-            
-            return View(projectModel);
+
+            // Get all lients for html Dropdawn
+            List<ClientModel> clients = _mapper.Map<List<ClientModel>>(_unitOfWork.ClientRepository.GetClientsForOwner(owner));
+
+            ProjectEditViewModel projectEditViewModel = new ProjectEditViewModel();
+            projectEditViewModel.Project = projectModel;
+            projectEditViewModel.Clients = clients;
+
+            return View(projectEditViewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit([FromRoute]int id, [FromForm] ProjectModel projectModel)
+        public async Task<IActionResult> Edit([FromRoute]int id, [FromForm] ProjectEditViewModel projectEditViewModel)
         {           
                 
-            if (projectModel is null)
+            if (projectEditViewModel is null)
                 return RedirectToAction(nameof(Index));
 
             var owner = GetUser();
             if (owner == null)
                 return BadRequest("Nepřihlášený uživatel");
 
+            var projectModel = projectEditViewModel.Project;
             var projectEntity = _unitOfWork.ProjectRepository.GetProjectForOwner(id, owner);
             projectEntity.Name = projectModel.Name;
             projectEntity.Description = projectModel.Description;
             projectEntity.StarTimeUTC = projectModel.StarTimeUTC;
             projectEntity.EndTimeUTC = projectModel.EndTimeUTC;
+
+            // add client
+            if (projectModel.ClientId != null)
+                projectEntity.Client = _unitOfWork.ClientRepository.GetClientForOwner(owner, (int)projectModel.ClientId);
 
             // save project changes
             _unitOfWork.ProjectRepository.Update(projectEntity);
@@ -128,7 +152,7 @@ namespace GZTimeTracker.Web.Controllers
             // save tasks
             foreach(var taskModel in projectModel.Tasks)
             {
-                var taskEntity = await _unitOfWork.TaskRepository.GetById(taskModel.Id);
+                var taskEntity = await _unitOfWork.TaskRepository.GetByIdAsync(taskModel.Id);
                 if (taskEntity == null)
                     continue;
 
@@ -153,9 +177,15 @@ namespace GZTimeTracker.Web.Controllers
                 return BadRequest("Nemáte oprávnění");
 
             var projectModel = _mapper.Map<ProjectModel>(projectEntity);
+
+            if (projectModel.ClientId > 0)
+                projectModel.Client = _mapper.Map<ClientModel>
+                    (_unitOfWork.ClientRepository.GetClientForOwner(owner, (int)projectModel.ClientId));
             
             if (projectModel == null)
                 return RedirectToAction(nameof(Index));
+
+            projectModel.Tasks = _mapper.Map<List<TaskModel>>(_unitOfWork.TaskRepository.GetAllForProject(projectEntity));
             return View(projectModel);
         }
 

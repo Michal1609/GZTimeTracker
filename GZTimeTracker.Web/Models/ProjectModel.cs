@@ -27,8 +27,10 @@ namespace GZTimeTracker.Web.Models
         [Display(Name = "ProjectModel.EndTimeUTC")]
         public DateTime EndTimeUTC { get; set; }
 
-        //[Display(Name = "Client")]
-        //public ClientModel Client { get; set; }
+        public int? ClientId { get; set; }
+
+        [Display(Name = "Client")]
+        public ClientModel Client { get; set; }
 
         [Display(Name = "ProjectModel.Tasks")]
         public IList<TaskModel> Tasks { get; set; }

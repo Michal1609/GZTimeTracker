@@ -19,8 +19,8 @@ namespace GZIT.GZTimeTracker.Core.Infrastructure.Entities
 
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
-
-        public ICollection<RoleEntity> Roles { get; set; }
+        
+        //public ICollection<UserProjectRoleEntity> UserProjectRoles { get; set; }
 
         public ICollection<ProjectEntity> Projets { get; set; }
 
@@ -28,6 +28,9 @@ namespace GZIT.GZTimeTracker.Core.Infrastructure.Entities
 
         public ICollection<ClientEntity> Clients { get; set; }
 
-        public ICollection<UsersOnProjectEntity> UsersOnProjects { get; set; }
+        public ICollection<CustomerRolesEntity> CustomerRoles { get; set; }
+        public ICollection<UserInRoleEntity> UserInRoles { get; set; }
+
+      
     }
 }
