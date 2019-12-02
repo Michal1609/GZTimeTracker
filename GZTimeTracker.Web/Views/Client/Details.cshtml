@@ -7,7 +7,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>@Localizer["Views.Client.ClientDetail"]</h2>
+<h2>@Localizer["Views.Client.Details.Caption"]</h2>
 
 <div>
     <hr />
@@ -33,6 +33,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">@Localizer["Save"]</a> |
-    <a asp-action="Index">@Localizer["BackToList"]</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">@Localizer["Views.Client.Details.Save"]</a> |
+    <a asp-action="Index">@Localizer["Views.Client.Details.BackToList"]</a>
 </div>

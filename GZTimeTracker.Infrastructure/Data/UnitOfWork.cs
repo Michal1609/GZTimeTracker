@@ -14,6 +14,7 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
         private IDbContextTransaction _transaction;
 
         private DataContext _context;
+        private IRepository<SystemInformationEntity> _systemInformationRepository;
         private IUserRepository _userRepository;
         private ILocaleStringResourceRepository _localeStringResourceRepository;
         private IProjectRepository _projectRepository;       
@@ -30,6 +31,18 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
         public UnitOfWork(DataContext context)
         {
             _context = context;            
+        }
+
+        public IRepository<SystemInformationEntity> SystemInformationRepository
+        {
+            get
+            {
+                if (_systemInformationRepository == null)
+                {
+                    _systemInformationRepository = new Repository<SystemInformationEntity>(_context);
+                }
+                return _systemInformationRepository;
+            }
         }
 
         public IUserRepository UserRepository

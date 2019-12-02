@@ -5,11 +5,11 @@
 @inject IViewLocalizer Localizer
 
 @{
-    string edit = @Localizer["Project.Edit"].Value;
+    string edit = @Localizer["View.Project.Details.Caption"].Value;
 
 }
     <div>
-        <h2>@Localizer["Project.ProjectDetail"]</h2>
+        <h2>@Localizer["View.Project.Details.Caption"]</h2>
         <hr />
         <dl class="row">
             <dt class="col-sm-2">
@@ -55,7 +55,7 @@
                 @Html.DisplayFor(model => model.EndTimeUTC)
             </dd>
         </dl>
-        <h3>@Localizer["ProjectModel.Tasks"]</h3>
+        <h3>@Localizer["View.Project.Details.Tasks"]</h3>
         <dl class="row">
             @{
                 if (Model.Tasks != null)
@@ -70,6 +70,6 @@
         </dl>
     </div>
 <div>
-    @Html.ActionLink(Localizer["Project.Edit"].Value, "Edit", new { Model.Id }) |
-    <a asp-action="Index">@Localizer["BackToList"]</a>
+    @Html.ActionLink(Localizer["View.Project.Details.Edit"].Value, "Edit", new { Model.Id }) |
+    <a asp-action="Index">@Localizer["View.Project.Details.BackToList"]</a>
 </div>

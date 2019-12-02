@@ -10,5 +10,7 @@ namespace GZIT.GZTimeTracker.Core.Infrastructure
         string GetString(string name, int language);
 
         IList<LocaleStringResourceEntity> GetAllStrings();
+
+        void DeleteByLanguageId(int languageId);
     }
 }

@@ -22,6 +22,7 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
 
         }
 
+        public DbSet<SystemInformationEntity> SystemInformation { get; set; }
         public DbSet<ExceptionlogEntity> ExceptionLog { get; set; }
         public DbSet<UserEntity> User { get; set; }
         public DbSet<ProjectEntity> Project { get; set; }
@@ -121,6 +122,7 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
             modelBuilder.Entity<LanguageEntity>().HasData(
                 new LanguageEntity() { Id = 1, Code = "cs", Name = "Čeština" });
                 */
+                /*
 
             modelBuilder.Entity<SystemRoleEntity>().HasData(                
                 new SystemRoleEntity() { Id = 1, Name = "admin", Description = "Administrátor" },
@@ -144,6 +146,7 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
                 new SystemRoleActionsEntity() { Id = 6, SystemRoleId = 2, ActionId = 2 },
                 new SystemRoleActionsEntity() { Id = 7, SystemRoleId = 2, ActionId = 4 }
                 );
+                */
         }
 
       

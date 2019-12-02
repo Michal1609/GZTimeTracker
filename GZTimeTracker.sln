@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GZTimeTracker.Infrastructur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GZTimeTracker.Web", "GZTimeTracker.Web\GZTimeTracker.Web.csproj", "{A605BD7A-B01A-492F-8705-5B32C32F5A79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GZTimeTracker.Administration", "GZTimeTracker.Administration\GZTimeTracker.Administration.csproj", "{8F68D9F7-D89C-4A80-AF7F-9C927CDF77D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A605BD7A-B01A-492F-8705-5B32C32F5A79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A605BD7A-B01A-492F-8705-5B32C32F5A79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A605BD7A-B01A-492F-8705-5B32C32F5A79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F68D9F7-D89C-4A80-AF7F-9C927CDF77D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F68D9F7-D89C-4A80-AF7F-9C927CDF77D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F68D9F7-D89C-4A80-AF7F-9C927CDF77D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F68D9F7-D89C-4A80-AF7F-9C927CDF77D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

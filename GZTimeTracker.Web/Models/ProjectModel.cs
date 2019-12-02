@@ -29,7 +29,7 @@ namespace GZTimeTracker.Web.Models
 
         public int? ClientId { get; set; }
 
-        [Display(Name = "Client")]
+        [Display(Name = "ProjectModel.Client")]
         public ClientModel Client { get; set; }
 
         [Display(Name = "ProjectModel.Tasks")]

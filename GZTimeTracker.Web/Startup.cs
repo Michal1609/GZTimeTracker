@@ -63,6 +63,7 @@ namespace GZTimeTracker.Web
 
             // Get allowed languages            
             var context = services.BuildServiceProvider().GetService<DataContext>();
+            context.Database.Migrate();
             var languages = context.Language.ToList();
             WebWorker.InstalledLanguages = languages;
             CultureInfo[] cultureInfos = new CultureInfo[languages.Count];

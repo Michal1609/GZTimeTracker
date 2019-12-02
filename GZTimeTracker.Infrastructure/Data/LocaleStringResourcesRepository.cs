@@ -27,5 +27,10 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
 
             return value;
         }
+
+        public void DeleteByLanguageId(int languageId)
+        {
+            table.RemoveRange(from row in table where row.LanguageId == languageId select row);
+        }
     }
 }

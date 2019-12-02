@@ -4,7 +4,7 @@
 
 @inject IViewLocalizer Localizer
 
-    <h2>@Localizer["Project.NewProject"]</h2>
+    <h2>@Localizer["View.Project.Create.Caption"]</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -36,13 +36,13 @@
                 <span asp-validation-for="EndTimeUTC" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value=@Localizer["Save"] class="btn btn-primary" />
+                <input type="submit" value=@Localizer["View.Project.Create.Caption.Save"] class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">@Localizer["BackToList"]</a>
+    <a asp-action="Index">@Localizer["View.Project.Create.Caption.BackToList"]</a>
 </div>
 

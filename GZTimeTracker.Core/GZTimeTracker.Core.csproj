@@ -9,4 +9,13 @@
     <Product>Time tracker</Product>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Update="LanguagePacks\Czech.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="LanguagePacks\Test.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -157,6 +157,9 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Version")
+                        .HasColumnType("decimal(4, 2)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Language");
@@ -222,6 +225,21 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Project");
+                });
+
+            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.SystemInformationEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Version")
+                        .HasColumnType("decimal(4, 2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SystemInformation");
                 });
 
             modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.SystemRoleActionsEntity", b =>

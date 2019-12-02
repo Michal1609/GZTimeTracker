@@ -1,9 +1,11 @@
-﻿using GZIT.GZTimeTracker.Core.Infrastructure;
+﻿using EFCore.BulkExtensions;
+using GZIT.GZTimeTracker.Core.Infrastructure;
 using GZIT.GZTimeTracker.Core.Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,7 +22,12 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
             table = _context.Set<T>();
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        public IList<T> GetAll()
+        {
+            return table.ToList();
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
             return await table.ToListAsync();         
         }
@@ -35,10 +42,24 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
             return table.FirstOrDefault(x => x.Id == id);
         }
 
+        public IEnumerable<T> Get(Expression<Func<T, bool>> predicate)
+        {
+            return table.Where(predicate).AsEnumerable<T>();
+        }
+        public T GetSingle(Expression<Func<T, bool>> predicate)
+        {
+            return Get(predicate).FirstOrDefault();
+        }
+
         public T Insert(T obj)
         {
             table.Add(obj);
             return obj;
+        }
+
+        public void Insert(List<T> list)
+        {
+            _context.BulkInsert<T>(list);           
         }
 
         public void Update(T obj)
@@ -59,6 +80,11 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
         {
             T existing = table.Find(id);
             table.Remove(existing);
+        }
+
+        public void Delete(IEnumerable<T> items)
+        {
+            _context.BulkDelete(items.ToList());            
         }
 
         public void DeleteAll()
@@ -84,6 +110,8 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
         {
             throw new NotImplementedException();
         }
+
+       
     }
 
 }

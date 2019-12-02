@@ -3,7 +3,7 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 
-<h2>@Localizer["Project.EditProject"]</h2>
+<h2>@Localizer["View.Project.Edit.Edit"]</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -71,7 +71,7 @@
         </select>
 
             <div class="form-group">
-                <input type="submit" value=@Localizer["Save"] class="btn btn-primary" />
+                <input type="submit" value=@Localizer["View.Project.Edit.Save"] class="btn btn-primary" />
             </div>
         </form>
 
@@ -79,17 +79,17 @@
         <form asp-action="CreateTask">
             <div class="form-group">
                 @Html.Hidden("projectId", Model.Project.Id)
-                @Html.Label(Localizer["Project.View.Edit.NewTask"].Value)
+                @Html.Label(Localizer["Project.View.Edit.CreaetTask"].Value)
                 @Html.TextBox("name");
             </div>
             <div class="form-group">
-                <input type="submit" value=@Localizer["Save"] class="btn btn-primary" />
+                <input type="submit" value=@Localizer["View.Project.Edit.Save"] class="btn btn-primary" />
             </div>
         </form>
 </div>
 </div>
 
 <div>
-    <a asp-action="Index">@Localizer["BackToList"]</a>
+    <a asp-action="Index">@Localizer["View.Project.Edit.BackToList"]</a>
 </div>
 

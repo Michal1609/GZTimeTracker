@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<language name="Czech" packversion="1.00" supportedversion ="1" code="cs">
+  <!-- Basic shared resources -->
+  <Resource name="Save">
+    <Value>Uložit</Value>
+  </Resource>
+  <Resource name="Edit">
+    <Value>Editace</Value>
+  </Resource>
+  <Resource name="Detail">
+    <Value>Detail</Value>
+  </Resource>
+  <Resource name="Delete">
+    <Value>Smazat</Value>
+  </Resource>
+  <!-- Menu / Navigation-->
+  <Resource name="Navigation.Register">
+    <Value>Registrace</Value>
+  </Resource>
+  <Resource name="Navigation.Login">
+    <Value>Přihlásit</Value>
+  </Resource>
+  <Resource name="Navigation.Home">
+    <Value>Domů</Value>
+  </Resource>
+  <Resource name="Navigation.Projects">
+    <Value>Projkty</Value>
+  </Resource>
+  <Resource name="Navigation.Clients">
+    <Value>Zákazníci</Value>
+  </Resource>
+  <Resource name="Navigation.Logout">
+    <Value>Odhlásit</Value>
+  </Resource>
+  <!--Models-->
+  <Resource name="ProjectModel.Code">
+    <Value>Kód</Value>
+  </Resource>
+  <Resource name="ProjectModel.Description">
+    <Value>Popis</Value>
+  </Resource>
+  <Resource name="ProjectModel.StarTimeUTC">
+    <Value>Zahájení</Value>
+  </Resource>
+  <Resource name="ProjectModel.EndTimeUTC">
+    <Value>Ukončení</Value>
+  </Resource>
+  <Resource name="ProjectModel.Name">
+    <Value>Název</Value>
+  </Resource>
+  <Resource name="ProjectModel.Client">
+    <Value>Zákazník</Value>
+  </Resource>
+  <Resource name="ProjectModel.Tasks">
+    <Value>Úlohy</Value>
+  </Resource>
+  <Resource name="ClientModel.Name">
+    <Value>Zákazník</Value>
+  </Resource>
+  <Resource name="ClientModel.Address">
+    <Value>Adresa</Value>
+  </Resource>
+  <Resource name="ClientModel.Description">
+    <Value>Poznámka</Value>
+  </Resource>
+  <Resource name="ClientModel.Projects">
+    <Value>Projekty</Value>
+  </Resource>
+  <Resource name="TaskModel.Name">
+    <Value>Název</Value>
+  </Resource>
+  <Resource name="UserModel.FirstName">
+    <Value>Jméno</Value>
+  </Resource>
+  <Resource name="UserModel.LastName">
+    <Value>Příjmení</Value>
+  </Resource>
+  <Resource name="UserModel.Roles">
+    <Value>Role</Value>
+  </Resource>
+  <Resource name="UserModel.Projets">
+    <Value>Projekty</Value>
+  </Resource>
+  <Resource name="UserModel.Team">
+    <Value>Tým</Value>
+  </Resource>
+  <Resource name="UserModel.Clients">
+    <Value>Zákazníci</Value>
+  </Resource>
+  <!-- Views -->
+  <Resource name="View.Project.Index.ProjectList">
+    <Value>Seznam projektů</Value>
+  </Resource>
+  <Resource name="View.Project.Index.CreateProject">
+    <Value>Založit projekt</Value>
+  </Resource>
+  <Resource name="View.Project.Index.Edit">
+    <Value>Editace</Value>
+  </Resource>
+  <Resource name="View.Project-Index.Delete">
+    <Value>Smazat</Value>
+  </Resource>
+  <Resource name="View.Project.Index.Details">
+    <Value>Detail</Value>
+  </Resource>
+  <Resource name="View.Project.Edit.Edit">
+    <Value>Editace projektu</Value>
+  </Resource>
+  <Resource name="View.Project.Edit.Save">
+    <Value>Uložit</Value>
+  </Resource>
+  <Resource name="Project.View.Edit.CreateTask">
+    <Value>Založit úlohu</Value>
+  </Resource>
+  <Resource name="View.Project.Edit.BackToList">
+    <Value>Zpět na seznam</Value>
+  </Resource>
+  <Resource name="View.Project.Details.Caption">
+    <Value>Detail projektu</Value>
+  </Resource>
+  <Resource name="View.Project.Details.Tasks">
+    <Value>Seznam úkolů</Value>
+  </Resource>
+  <Resource name="View.Project.Details.Edit">
+    <Value>Editovat</Value>
+  </Resource>
+  <Resource name="View.Project.Details.BackToList">
+    <Value>Zpět na seznam</Value>
+  </Resource>
+  <Resource name="View.Project.Create.Caption">
+    <Value>Založení projektu</Value>
+  </Resource>
+  <Resource name="View.Project.Create.Caption.Save">
+    <Value>Uložit</Value>
+  </Resource>
+  <Resource name="View.Project.Create.Caption.BackToList">
+    <Value>Zpět na seznam</Value>
+  </Resource>
+  <Resource name="Views.Client.Create.Caption">
+    <Value>Založení klienta</Value>
+  </Resource>
+  <Resource name="Views.Client.Create.Save">
+    <Value>Uložit</Value>
+  </Resource>
+  <Resource name="Views.Client.Create.BackToList">
+    <Value>Zpět na seznam</Value>
+  </Resource>
+  <Resource name="Views.Client.Details.Caption">
+    <Value>Detail zákazníka</Value>
+  </Resource>
+  <Resource name="Views.Client.Details.Save">
+    <Value>Save</Value>
+  </Resource>
+  <Resource name="Views.Client.Details.BackToList">
+    <Value>Zpět na seznam</Value>
+  </Resource>
+  <Resource name="Views.Client.Edit.Caption">
+    <Value>Editace zákazníka</Value>
+  </Resource>
+  <Resource name="Views.Client.Edit.Save">
+    <Value>Uložit</Value>
+  </Resource>
+  <Resource name="Views.Client.Edit.BackToList">
+    <Value>Zpět na seznam</Value>
+  </Resource>
+  <Resource name="Views.Client.Index.Caption">
+    <Value>Seznam zákazníků</Value>
+  </Resource>
+  <Resource name="Views.Client.Index.CreateClient">
+    <Value>Založit zákazníka</Value>
+  </Resource>
+ 
+</language>
+

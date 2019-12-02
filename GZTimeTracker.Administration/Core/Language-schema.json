@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "JSON Schema for my Languhage JSON file format",
+
+  "type": "object",
+
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Language name"
+    },
+    "packversion": {
+      "type": "string",
+      "description": "Language pack verison"
+    },
+    "supportedversion": {
+      "type": "string",
+      "description": "Suported version"
+    },
+    "code": {
+      "type": "string",
+      "description": "Language code"
+    },
+    "resources": {
+      "type": "array",
+      "description": "Pøeklady",
+      "items": {
+        "type": "object",
+        "required": [
+          "Value",
+          "Name"
+        ]
+      },
+      "properties": {
+        "Value": {
+          "type": "string",
+          "description": "Pøeklad"
+
+        },
+        "Name": {
+          "type": "string",
+          "description": "Zdroj"
+        }
+      }
+    }
+  }
+}
+
+      
+   

@@ -1,0 +1,228 @@
+{
+  "name": "Czech",
+  "packversion": "1.00",
+  "supportedversion": "1.00",
+  "code": "cs",
+  "Resources": [
+    {
+      "Value": "Uložit",
+      "Name": "Save"
+    },
+    {
+      "Value": "Editace",
+      "Name": "Edit"
+    },
+    {
+      "Value": "Detail",
+      "Name": "Detail"
+    },
+    {
+      "Value": "Smazat",
+      "Name": "Delete"
+    },
+    {
+      "Value": "Registrace",
+      "Name": "Navigation.Register"
+    },
+    {
+      "Value": "Přihlásit",
+      "Name": "Navigation.Login"
+    },
+    {
+      "Value": "Domů",
+      "Name": "Navigation.Home"
+    },
+    {
+      "Value": "Projkty",
+      "Name": "Navigation.Projects"
+    },
+    {
+      "Value": "Zákazníci",
+      "Name": "Navigation.Clients"
+    },
+    {
+      "Value": "Odhlásit",
+      "Name": "Navigation.Logout"
+    },
+    {
+      "Value": "Kód",
+      "Name": "ProjectModel.Code"
+    },
+    {
+      "Value": "Popis",
+      "Name": "ProjectModel.Description"
+    },
+    {
+      "Value": "Zahájení",
+      "Name": "ProjectModel.StarTimeUTC"
+    },
+    {
+      "Value": "Ukončení",
+      "Name": "ProjectModel.EndTimeUTC"
+    },
+    {
+      "Value": "Název",
+      "Name": "ProjectModel.Name"
+    },
+    {
+      "Value": "Zákazník",
+      "Name": "ProjectModel.Client"
+    },
+    {
+      "Value": "Úlohy",
+      "Name": "ProjectModel.Tasks"
+    },
+    {
+      "Value": "Zákazník",
+      "Name": "ClientModel.Name"
+    },
+    {
+      "Value": "Adresa",
+      "Name": "ClientModel.Address"
+    },
+    {
+      "Value": "Poznámka",
+      "Name": "ClientModel.Description"
+    },
+    {
+      "Value": "Projekty",
+      "Name": "ClientModel.Projects"
+    },
+    {
+      "Value": "Název",
+      "Name": "TaskModel.Name"
+    },
+    {
+      "Value": "Jméno",
+      "Name": "UserModel.FirstName"
+    },
+    {
+      "Value": "Příjmení",
+      "Name": "UserModel.LastName"
+    },
+    {
+      "Value": "Role",
+      "Name": "UserModel.Roles"
+    },
+    {
+      "Value": "Projekty",
+      "Name": "UserModel.Projets"
+    },
+    {
+      "Value": "Tým",
+      "Name": "UserModel.Team"
+    },
+    {
+      "Value": "Zákazníci",
+      "Name": "UserModel.Clients"
+    },
+    {
+      "Value": "Seznam projektů",
+      "Name": "View.Project.Index.ProjectList"
+    },
+    {
+      "Value": "Založit projekt",
+      "Name": "View.Project.Index.CreateProject"
+    },
+    {
+      "Value": "Editace",
+      "Name": "View.Project.Index.Edit"
+    },
+    {
+      "Value": "Smazat",
+      "Name": "View.Project-Index.Delete"
+    },
+    {
+      "Value": "Detail",
+      "Name": "View.Project.Index.Details"
+    },
+    {
+      "Value": "Editace projektu",
+      "Name": "View.Project.Edit.Edit"
+    },
+    {
+      "Value": "Uložit",
+      "Name": "View.Project.Edit.Save"
+    },
+    {
+      "Value": "Založit úlohu",
+      "Name": "Project.View.Edit.CreateTask"
+    },
+    {
+      "Value": "Zpět na seznam",
+      "Name": "View.Project.Edit.BackToList"
+    },
+    {
+      "Value": "Detail projektu",
+      "Name": "View.Project.Details.Caption"
+    },
+    {
+      "Value": "Seznam úkolů",
+      "Name": "View.Project.Details.Tasks"
+    },
+    {
+      "Value": "Editovat",
+      "Name": "View.Project.Details.Edit"
+    },
+    {
+      "Value": "Zpět na seznam",
+      "Name": "View.Project.Details.BackToList"
+    },
+    {
+      "Value": "Založení projektu",
+      "Name": "View.Project.Create.Caption"
+    },
+    {
+      "Value": "Uložit",
+      "Name": "View.Project.Create.Caption.Save"
+    },
+    {
+      "Value": "Zpět na seznam",
+      "Name": "View.Project.Create.Caption.BackToList"
+    },
+    {
+      "Value": "Založení klienta",
+      "Name": "Views.Client.Create.Caption"
+    },
+    {
+      "Value": "Uložit",
+      "Name": "Views.Client.Create.Save"
+    },
+    {
+      "Value": "Zpět na seznam",
+      "Name": "Views.Client.Create.BackToList"
+    },
+    {
+      "Value": "Detail zákazníka",
+      "Name": "Views.Client.Details.Caption"
+    },
+    {
+      "Value": "Save",
+      "Name": "Views.Client.Details.Save"
+    },
+    {
+      "Value": "Zpět na seznam",
+      "Name": "Views.Client.Details.BackToList"
+    },
+    {
+      "Value": "Editace zákazníka",
+      "Name": "Views.Client.Edit.Caption"
+    },
+    {
+      "Value": "Uložit",
+      "Name": "Views.Client.Edit.Save"
+    },
+    {
+      "Value": "Zpět na seznam",
+      "Name": "Views.Client.Edit.BackToList"
+    },
+    {
+      "Value": "Seznam zákazníků",
+      "Name": "Views.Client.Index.Caption"
+    },
+    {
+      "Value": "Založit zákazníka",
+      "Name": "Views.Client.Index.CreateClient"
+    }
+  ]
+}

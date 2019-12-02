@@ -1,0 +1,62 @@
+﻿@model IEnumerable<GZTimeTracker.Administration.Areas.Administration.Models.LanguageModel>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Správa jazykových verzí";
+    Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Správa jazykových verzí</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Version)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Version)
+                </td>
+                <td>  
+                    @Html.ActionLink("Delete", "Delete", new { id= item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<form method="post" enctype="multipart/form-data" asp-controller="Language" asp-action="ImportFromDisk" asp-antiforgery="true">
+    <div class="form-group">
+        <div class="col-md-3">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="file" name="file" required oninvalid="this.setCustomValidity('Vyberte soubor')">
+                <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                <div class="invalid-feedback">Example invalid custom file feedback</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3">
+            <input type="submit" value="Upload" class="btn btn-outline-primary" />
+        </div>
+    </div>
+</form>

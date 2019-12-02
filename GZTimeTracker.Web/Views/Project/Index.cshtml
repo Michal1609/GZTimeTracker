@@ -6,14 +6,14 @@
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
 
 @{ 
-    string edit = @Localizer["Project.Edit"].Value;
-    string delete = @Localizer["Project.Delete"].Value;
-    string details = @Localizer["Project.Details"].Value;
+    string edit = @Localizer["View.Project.Index.Edit"].Value;
+    string delete = @Localizer["View.Project.Index.Delete"].Value;
+    string details = @Localizer["View.Project.Index.Details"].Value;
 }
 
-<h2>@Localizer["Project.ProjectList"]</h2>
+<h2>@Localizer["View.Project.Index.ProjectList"]</h2>
 <p>
-    <a asp-action="Create">@Localizer["CreateProject"]</a>
+    <a asp-action="Create">@Localizer["View.Project.Index.CreateProject"]</a>
 </p>
 <table class="table">
     <thead>

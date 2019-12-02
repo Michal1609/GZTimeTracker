@@ -8,6 +8,7 @@ namespace GZIT.GZTimeTracker.Core.Infrastructure
 {
     public interface IUnitOfWork
     {
+        IRepository<SystemInformationEntity> SystemInformationRepository { get; }
         IUserRepository UserRepository { get; }
         IProjectRepository ProjectRepository { get; }
         //IRoleRepository RoleRepository { get; }
