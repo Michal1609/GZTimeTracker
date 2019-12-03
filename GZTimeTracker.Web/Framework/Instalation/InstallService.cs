@@ -2,7 +2,9 @@
 using GZIT.GZTimeTracker.Core.Infrastructure.Entities;
 using GZIT.GZTimeTracker.Infrastructure.Data;
 using GZTimeTracker.Web.Framework.Seed;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -16,22 +18,42 @@ namespace GZTimeTracker.Web.Framework.Instalation
         private readonly DataContext _context;
         private readonly IConfiguration _configuration;
         private readonly IUnitOfWork _unitOfWork;
-        public InstallService(DataContext context, IConfiguration configuration, IUnitOfWork unitOfWork)
+        private readonly IOptions<RequestLocalizationOptions> _locOptions;
+        public InstallService(DataContext context, IConfiguration configuration, 
+            IUnitOfWork unitOfWork, IOptions<RequestLocalizationOptions> locOptions)
         {
             _context = context;
             _configuration = configuration;
             _unitOfWork = unitOfWork;
+            _locOptions = locOptions;
         }
 
         public void Install()
         {
             // Create database if necessery
-            _context.Database.EnsureCreated();
+            CreateDbIfNecessery();
 
-            // Set product Version
+            // Set product Version           
+            SetProductVersion();
+
+            // Seed system roles
+            SeedRole();
+
+            // Set supported languages
+            SetSupportedLanguages();
+           
+        }
+
+        private void CreateDbIfNecessery()
+        {
+            _context.Database.EnsureCreated();
+        }
+
+        private void SetProductVersion()
+        {
             string versionString = _configuration.GetSection("SystemVersion").Value;
-            decimal version = decimal.Parse(versionString, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
-            
+            decimal version = decimal.Parse(versionString, NumberStyles.AllowDecimalPoint,
+                CultureInfo.InvariantCulture);
 
             var systemInformationEntity = _context.SystemInformation.FirstOrDefault();
             if (systemInformationEntity == null)
@@ -43,10 +65,26 @@ namespace GZTimeTracker.Web.Framework.Instalation
             }
 
             _context.SaveChanges();
+        }
 
-            // Seed system roles
+        private void SeedRole()
+        {
             SeedSystemRole seed = new SeedSystemRole(_unitOfWork);
             seed.SeedData();
+        }
+
+        private void SetSupportedLanguages()
+        {
+            var languages = _context.Language.ToList();
+            WebWorker.InstalledLanguages = languages;
+            CultureInfo[] cultureInfos = new CultureInfo[languages.Count];
+            for (int i = 0; i < languages.Count; i++)
+            {
+                cultureInfos[i] = new CultureInfo(languages[i].Code);
+            }
+
+            _locOptions.Value.SupportedCultures = cultureInfos;
+            _locOptions.Value.SupportedUICultures = cultureInfos;
         }
     }
 }

@@ -28,8 +28,7 @@ namespace GZIT.GZTimeTracker.Core.Infrastructure
 
         void Delete(IEnumerable<T> items);
         void DeleteAll();
-        Task<int> Count();
-        IQueryable<T> EntityFromSql<T>(string sql, params object[] parameters) where T : BaseEnitity;
+        Task<int> Count();      
         void RunRawSql(string sql);
         void Save();
     }

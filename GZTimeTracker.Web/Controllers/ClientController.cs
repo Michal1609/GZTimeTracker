@@ -11,9 +11,12 @@ using AutoMapper;
 using GZIT.GZTimeTracker.Core.Web;
 using GZIT.GZTimeTracker.Core.Infrastructure;
 using GZTimeTracker.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GZTimeTracker.Web.Controllers
 {
+    [AutoValidateAntiforgeryToken]
+    [Authorize]
     public class ClientController : BaseController
     {
         private readonly IMapper _mapper;
@@ -45,7 +48,7 @@ namespace GZTimeTracker.Web.Controllers
         }
 
         // GET: Client/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -75,7 +78,7 @@ namespace GZTimeTracker.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Address,Description,Id")] ClientModel clientModel)
+        public IActionResult Create([Bind("Name,Address,Description,Id")] ClientModel clientModel)
         {
             if (!ModelState.IsValid)
             {
@@ -103,7 +106,7 @@ namespace GZTimeTracker.Web.Controllers
         }
 
         // GET: Client/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -131,7 +134,7 @@ namespace GZTimeTracker.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Address,Description,Id")] ClientModel clientModel)
+        public IActionResult Edit(int id, [Bind("Name,Address,Description,Id")] ClientModel clientModel)
         {
             if (id != clientModel.Id)
             {

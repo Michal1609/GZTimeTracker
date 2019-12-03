@@ -5,10 +5,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using GZIT.GZTimeTracker.Core.Infrastructure;
 using GZIT.GZTimeTracker.Core.Web;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GZTimeTracker.Web.Controllers
 {
+    [AutoValidateAntiforgeryToken]
+    [Authorize]
     public class TaskController : BaseController
     {        
         private readonly IMapper _mapper;

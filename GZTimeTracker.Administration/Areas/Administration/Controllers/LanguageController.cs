@@ -8,6 +8,7 @@ using GZIT.GZTimeTracker.Core.Infrastructure;
 using GZIT.GZTimeTracker.Core.Infrastructure.Entities;
 using GZTimeTracker.Administration.Areas.Administration.Models;
 using GZTimeTracker.Administration.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -17,6 +18,7 @@ using Newtonsoft.Json.Schema;
 namespace GZTimeTracker.Administration.Areas.Administration.Controllers
 {
     [Area("Administration")]
+    [Authorize]
     [AutoValidateAntiforgeryToken]
     public class LanguageController : BaseController
     {
@@ -48,7 +50,8 @@ namespace GZTimeTracker.Administration.Areas.Administration.Controllers
         }
 
 
-        [HttpPost]        
+        [HttpPost]  
+        [ValidateAntiForgeryToken]
         public IActionResult ImportFromDisk(IFormFile file)
         {
             if (file == null)
@@ -63,10 +66,11 @@ namespace GZTimeTracker.Administration.Areas.Administration.Controllers
                 var array = memoryStream.ToArray();
                 languageJsonContent = Encoding.UTF8.GetString(array, 0, array.Length);
             }
-            
+
 
             // validate input file
-            var languageSchema = System.IO.File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Core", "Language-schema.json"));            
+            var path = Path.Combine(Environment.CurrentDirectory, "Core", "Language-schema.json");
+            var languageSchema = System.IO.File.ReadAllText(path);            
             JSchema schema = JSchema.Parse(languageSchema);
             JObject langaugeObject = JObject.Parse(languageJsonContent);
             IList<string> messages;

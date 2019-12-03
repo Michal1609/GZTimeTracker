@@ -10,10 +10,10 @@ namespace GZTimeTracker.Web.Framework.Localizations
 {
     public class StringLocalizerFactory : IStringLocalizerFactory
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IHostingEnvironment _env;
+        private readonly IUnitOfWork _unitOfWork;        
+        private readonly IWebHostEnvironment _env;
 
-        public StringLocalizerFactory(IUnitOfWork unitOfWork, IHostingEnvironment env)
+        public StringLocalizerFactory(IUnitOfWork unitOfWork, IWebHostEnvironment env)
         {
             _unitOfWork = unitOfWork;
             _env = env;

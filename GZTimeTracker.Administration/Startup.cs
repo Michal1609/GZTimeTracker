@@ -81,7 +81,7 @@ namespace GZTimeTracker.Administration
                 endpoints.MapRazorPages();
             });
 
-            AppInstall(app);
+            Task taskAppInstall = AppInstall(app);
         }
 
         private static async Task AppInstall (IApplicationBuilder app)

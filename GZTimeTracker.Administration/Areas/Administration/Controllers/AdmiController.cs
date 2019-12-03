@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GZTimeTracker.Administration.Areas.Administration.Controllers
 {
     [Area("Administration")]
+    [Authorize]
     [AutoValidateAntiforgeryToken]
     public class AdmiController : BaseController
     {

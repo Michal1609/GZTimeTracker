@@ -16,9 +16,12 @@ using GZTimeTracker.Web.Models.ViewModels;
 using GZTimeTracker.Web.Framework.Repositories;
 using GZIT.GZTimeTracker.Core.Domain;
 using GZIT.GZTimeTracker.Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GZTimeTracker.Web.Controllers
 {
+    [AutoValidateAntiforgeryToken]
+    [Authorize]
     public class ProjectController : BaseController
     {        
         private readonly IMapper _mapper;
@@ -60,6 +63,7 @@ namespace GZTimeTracker.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(ProjectModel projectModel)
         {
             if (projectModel is null)
@@ -69,17 +73,8 @@ namespace GZTimeTracker.Web.Controllers
             
             projectRepository.CreateProject(projectModel, GetUser());
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index));           
             
-            var project = _mapper.Map<ProjectEntity>(projectModel);
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            project.Owner = _unitOfWork.UserRepository.GetUserByUserId(Guid.Parse(userId));
-
-            _unitOfWork.ProjectRepository.Insert(project);
-            _unitOfWork.Save();
-
-            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Delete(int id)
@@ -129,6 +124,7 @@ namespace GZTimeTracker.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([FromRoute]int id, [FromForm] ProjectEditViewModel projectEditViewModel)
         {           
                 
@@ -195,6 +191,7 @@ namespace GZTimeTracker.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateTask(string name, int projectId)
         {
             var owner = GetUser();
@@ -211,7 +208,15 @@ namespace GZTimeTracker.Web.Controllers
             _unitOfWork.TaskRepository.Insert(taskEntity);
             _unitOfWork.Save();
 
-            return  Redirect(Request.Headers["Referer"].ToString());           
+            string returnUrl = Request.Headers["Referer"].ToString();
+            if (Url.IsLocalUrl(returnUrl)) // Make sure the url is relative, not absolute path
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }                 
         }
 
         public IActionResult DeleteTask(int id, int projectId)
@@ -227,7 +232,16 @@ namespace GZTimeTracker.Web.Controllers
             _unitOfWork.TaskRepository.Delete(id);
             _unitOfWork.Save();
 
-            return Redirect(Request.Headers["Referer"].ToString());
+            string returnUrl = Request.Headers["Referer"].ToString();
+            if (Url.IsLocalUrl(returnUrl)) // Make sure the url is relative, not absolute path
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+           
         }
     }
     

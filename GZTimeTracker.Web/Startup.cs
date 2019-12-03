@@ -31,6 +31,8 @@ using GZTimeTracker.Web.Framework.Role;
 using GZIT.GZTimeTracker.Core.Infrastructure.Services;
 using GZIT.GZTimeTracker.Infrastructure.Services;
 using GZTimeTracker.Web.Framework.Instalation;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace GZTimeTracker.Web
 {
@@ -59,12 +61,14 @@ namespace GZTimeTracker.Web
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddTransient<IStringLocalizerFactory, Framework.Localizations.StringLocalizerFactory>();
-            services.AddMvc().AddViewLocalization().AddDataAnnotationsLocalization();
+            services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
+                .AddViewLocalization()
+                .AddDataAnnotationsLocalization();
             services.AddHttpContextAccessor();
 
-            // Get allowed languages            
-            var context = services.BuildServiceProvider().GetService<DataContext>();
-            context.Database.Migrate();
+            // Get allowed languages  
+            /*
+            var context = services.BuildServiceProvider().GetService<DataContext>();            
             var languages = context.Language.ToList();
             WebWorker.InstalledLanguages = languages;
             CultureInfo[] cultureInfos = new CultureInfo[languages.Count];
@@ -73,11 +77,11 @@ namespace GZTimeTracker.Web
                 cultureInfos[i] = new CultureInfo(languages[i].Code);
             }
        
-
+            */
             services.Configure<RequestLocalizationOptions>(options =>
             {
-                options.SupportedCultures = cultureInfos;
-                options.SupportedUICultures = cultureInfos;
+                options.SupportedCultures = new List<CultureInfo>() { CultureInfo.CurrentCulture };
+                options.SupportedUICultures = options.SupportedCultures;
             });
             
 
@@ -96,8 +100,6 @@ namespace GZTimeTracker.Web
             services.AddSingleton(mapper);
             services.AddSingleton<IRoleServices, RoleServices>();
             services.AddSingleton<IEmailSender, EmailSender>();
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -142,12 +144,12 @@ namespace GZTimeTracker.Web
                 Configuration.GetSection("");
                 var context = serviceScope.ServiceProvider.GetService<DataContext>();
                 var unitOfWork = serviceScope.ServiceProvider.GetRequiredService<IUnitOfWork>();
+                var locOptions = serviceScope.ServiceProvider.GetRequiredService<IOptions<RequestLocalizationOptions>>();
 
-                InstallService installService = new InstallService(context, Configuration, unitOfWork);
+                InstallService installService = new InstallService(context, Configuration, unitOfWork, locOptions);
                 installService.Install();
-            }
-
-            
+                
+            }            
         }
     }
 }

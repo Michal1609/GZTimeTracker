@@ -9,10 +9,13 @@ using GZIT.GZTimeTracker.Core.Infrastructure;
 using GZIT.GZTimeTracker.Core.Web;
 using GZTimeTracker.Core.Web;
 using GZTimeTracker.Web.Framework;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GZTimeTracker.Web.Controllers
 {
+    [AutoValidateAntiforgeryToken]
+    [Authorize]
     public class LanguageController : BaseController
     {
 
@@ -30,9 +33,17 @@ namespace GZTimeTracker.Web.Controllers
         #region Method
         public IActionResult Changlanguge(string selectedLanguage)
         {
-            _languageServices.SetLanguage(selectedLanguage);            
-                      
-            return Redirect(HttpContext.Request.Headers["Referer"].ToString());
+            _languageServices.SetLanguage(selectedLanguage);
+
+            string returnUrl = HttpContext.Request.Headers["Referer"].ToString();
+            if (Url.IsLocalUrl(returnUrl)) // Make sure the url is relative, not absolute path
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         #endregion

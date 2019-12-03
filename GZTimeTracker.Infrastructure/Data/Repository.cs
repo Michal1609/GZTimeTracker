@@ -70,7 +70,7 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
                 table.Attach(obj);
                 _context.Entry(obj).State = EntityState.Modified;
             }
-            catch(Exception ex)
+            catch
             {
 
             }
@@ -106,11 +106,6 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
         {
             _context.Database.ExecuteSqlRaw(sql);
         }
-        public IQueryable<T1> EntityFromSql<T1>(string sql, params object[] parameters) where T1 : BaseEnitity
-        {
-            throw new NotImplementedException();
-        }
-
        
     }
 

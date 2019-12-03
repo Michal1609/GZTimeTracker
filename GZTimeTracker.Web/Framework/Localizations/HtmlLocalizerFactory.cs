@@ -11,9 +11,9 @@ namespace GZTimeTracker.Web.Framework.Localizations
     public class HtmlLocalizerFactory : IHtmlLocalizerFactory
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IHostingEnvironment _env;
+        private readonly IWebHostEnvironment _env;
 
-        public HtmlLocalizerFactory(IUnitOfWork unitOfWork, IHostingEnvironment env)
+        public HtmlLocalizerFactory(IUnitOfWork unitOfWork, IWebHostEnvironment env)
         {
             _unitOfWork = unitOfWork;
             _env = env;
