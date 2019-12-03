@@ -30,6 +30,7 @@ using GZIT.GZTimeTracker.Web.Framwork.Mapping;
 using GZTimeTracker.Web.Framework.Role;
 using GZIT.GZTimeTracker.Core.Infrastructure.Services;
 using GZIT.GZTimeTracker.Infrastructure.Services;
+using GZTimeTracker.Web.Framework.Instalation;
 
 namespace GZTimeTracker.Web
 {
@@ -130,14 +131,23 @@ namespace GZTimeTracker.Web
                 endpoints.MapRazorPages();
             });
 
-            /*
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
-                context.Database.Migrate();
-            }
-            */
+            Installation(app);
+        }
 
+        private void Installation(IApplicationBuilder app)
+        {
+            // Create DB from migrations if not exist
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                Configuration.GetSection("");
+                var context = serviceScope.ServiceProvider.GetService<DataContext>();
+                var unitOfWork = serviceScope.ServiceProvider.GetRequiredService<IUnitOfWork>();
+
+                InstallService installService = new InstallService(context, Configuration, unitOfWork);
+                installService.Install();
+            }
+
+            
         }
     }
 }
