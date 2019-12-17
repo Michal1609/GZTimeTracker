@@ -5,8 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace GZIT.GZTimeTracker.Infrastructure.Data
 {
@@ -15,11 +20,21 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
     /// </summary>
     public class DataContext : IdentityDbContext
     {
+        private readonly ICurrentUserService _currentUserService;
+        private readonly IHttpContextAccessor _accesor;
 
-        public DataContext(DbContextOptions<DataContext> options)
+        /*
+        public DataContext(DbContextOptions<DataContext> options, ICurrentUserService currentUserService)
            : base(options)
         {
-
+            _currentUserService = currentUserService;
+        }
+        */
+        public DataContext(DbContextOptions<DataContext> options, IHttpContextAccessor accessor)
+          : base(options)
+        {
+            //_currentUserService = currentUserService;
+            _accesor = accessor;
         }
 
         public DbSet<SystemInformationEntity> SystemInformation { get; set; }
@@ -38,13 +53,70 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
         public DbSet<CustomerRoleActionsEntity> CustomerRoleActions { get; set; }
         public DbSet<UserInRoleEntity> UserInRoles { get; set; }
         public DbSet<RunningTaskEntity> RunningTasks { get; set; }
-        public DbSet<SpendTimeEntity> SpendTimes { get; set; }
+        public DbSet<SpendTimeEntity> SpendTimes { get; set; }     
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-           
+        
+        public override int SaveChanges()
+        {      
+            var userGuid = _accesor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            if (!string.IsNullOrEmpty(userGuid))            
+            {
+                var userId = (from row in this.User
+                              where row.UserId == (new Guid(userGuid))
+                              select row.Id).SingleOrDefault();
 
+                foreach (var entry in ChangeTracker.Entries<BaseEnitity>())
+                { 
+                    switch (entry.State)
+                    {
+                        case EntityState.Added:
+                            entry.Entity.CreatedBy = userId;
+                            entry.Entity.CreatedUTC = DateTime.UtcNow;
+                            break;
+                        case EntityState.Modified:
+                            entry.Entity.LastModifiedBy = userId;
+                            entry.Entity.LastModifiedUTC = DateTime.UtcNow;
+                            break;
+                    }
+                }
+            }
+            
+
+            return base.SaveChanges();
         }
+
+        
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var userGuid = _accesor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!string.IsNullOrEmpty(userGuid))
+            {
+                var userId = (from row in this.User
+                              where row.UserId == (new Guid(userGuid))
+                              select row.Id).SingleOrDefault();
+
+                foreach (var entry in ChangeTracker.Entries<BaseEnitity>())
+                {
+                    switch (entry.State)
+                    {
+                        case EntityState.Added:
+                            entry.Entity.CreatedBy = userId;
+                            entry.Entity.CreatedUTC = DateTime.UtcNow;
+                            break;
+                        case EntityState.Modified:
+                            entry.Entity.LastModifiedBy = userId;
+                            entry.Entity.LastModifiedUTC = DateTime.UtcNow;
+                            break;
+                    }
+                }
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+            
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

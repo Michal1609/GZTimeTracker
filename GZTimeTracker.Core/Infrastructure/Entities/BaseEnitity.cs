@@ -13,5 +13,13 @@ namespace GZIT.GZTimeTracker.Core.Infrastructure.Entities
         /// Unique indetifivator as primary key
         /// </summary>
         public int Id { get; set; }
+        public int CreatedBy { get; set; }
+
+        public DateTime CreatedUTC { get; set; }
+
+        public int LastModifiedBy { get; set; }
+
+        public DateTime? LastModifiedUTC { get; set; }
+       
     }
 }
