@@ -8,8 +8,7 @@ namespace GZTimeTracker.Web.Models
 {
     public class TaskModel
     {
-        public int Id { get; set; }
-        public ProjectModel Project { get; set; }
+        public int Id { get; set; }        
 
         /// <summary>
         /// Name

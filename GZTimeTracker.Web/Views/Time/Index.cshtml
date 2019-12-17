@@ -1,0 +1,154 @@
+﻿@model GZTimeTracker.Web.Models.ViewModels.TimeIndexViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860    
+*@
+
+@{ 
+    //var taskIdForRun = 0;    
+    var selectTaskText = @Localizer["Views.Time.Index.SelectTask"].ToString();
+}
+<h3>@Localizer["Views.Time.Index.AddTask"]</h3>
+<div class="form-group">
+    <select id="ProjectList" onchange="GetTasks(this.value)" class="form-control">
+        <option value="0">@Localizer["Views.Time.Index.SelectProject"]</option>
+        @foreach (var project in Model.Projects)
+        {
+            var text = project.Code + " - " + project.Name;
+            <option value="@project.Id">@Html.Raw(text)</option>
+        }
+    </select>
+
+    <select id="TaskList" onchange="ChangeRunValue(this.value)" class="form-control">
+    </select>
+</div>
+
+<button id="b1" onclick="AddNewTask()" title="Start" class="btn btn-primary">START</button>
+
+<h3>@Localizer["Views.Time.Index.TodaysTasks"]</h3>
+@{ 
+    <table id="TodaysTasks" name="TodaysTasks" class="table table-striped">
+        <thead>
+            <tr>
+                <th>@Localizer["Views.Time.Index.TaskId"]</th>
+                <th>@Localizer["Views.Time.Index.ProjectCode"]</th>
+                <th>@Localizer["Views.Time.Index.TaskName"]</th>
+                <th>@Localizer["Views.Time.Index.SpendTime"]</th>
+                <th>@Localizer["Views.Time.Index.Status"]</th>
+            </tr>
+        </thead>
+        <tbody id="TodaysTasksBody">
+            @foreach (var runningTask in Model.TasksForRun)
+            {
+            <tr>
+                <td>
+                    @runningTask.Id
+                </td>
+                <td>
+                    @runningTask.ProjectCode
+                </td>
+                <td>
+                    @runningTask.TaskName
+                </td>
+                <td>
+                    @runningTask.SpendTime
+                </td>
+                <td>
+                    @{
+                        if (runningTask.Running == false)
+                        {
+                            var Url = "/Time/TaskStart/" + runningTask.Id.ToString();
+                            <a href="@Url">Spustit</a>
+                        }
+                        else
+                        {
+                            var Url = "/Time/TaskStop/" + runningTask.Id.ToString();
+                            <a href="@Url">Stop</a>
+                        }
+                    }
+
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+<script>
+    function AddNewTask() {
+        var e = document.getElementById("TaskList");
+        var value = e.options[e.selectedIndex].value;
+       
+        $.getJSON({ url: '/Time/AddTask/' + value}, function (j) {
+
+            let table = document.getElementById('TodaysTasks');
+
+            var isInTable = 0;
+            for (var i = 0; i < table.rows.length; i++) {
+                if (table.rows[i].cells[0].innerHTML == j[0].id) { isInTable = 1; }                    
+            }
+
+            if (isInTable == 1) { return;}                
+
+            let row = table.insertRow(table.rows.count);
+
+            let cel1 = row.insertCell(0);
+            let text1 = document.createTextNode(j[0].id);
+            cel1.appendChild(text1);
+
+            let cel5 = row.insertCell(1);
+            let text5 = document.createTextNode(j[0].projectCode);
+                cel5.appendChild(text5);
+
+            let cel2 = row.insertCell(2);
+            let text2 = document.createTextNode(j[0].taskName);
+                cel2.appendChild(text2);
+            let cel3 = row.insertCell(3);
+            let text3 = document.createTextNode(j[0].spendTime.totalHours +  ':' + j[0].spendTime.totalMinutes);
+               cel3.appendChild(text3);
+            let cel4 = row.insertCell(4);
+             
+            var link = document.createElement("a");
+            link.setAttribute("href", "/Time/TaskStart/" + value);                
+            var linkText = document.createTextNode('Spustit');
+            link.appendChild(linkText);
+            cel4.appendChild(link);
+           
+            //addRow('TodaysTasks');
+        })
+    }
+</script>
+
+
+<script>
+    function GetTasks(val) {        
+        $.getJSON({ url: '/Time/GetTasks/' + val }, function (j) {
+            var options = '';
+            options += '<option value="0">';
+            options += 'Vybrte úkol...';
+            options +='</option>';
+          for (var i = 0; i < j.length; i++) {
+            options += '<option value="' + j[i].id + '">' + j[i].name + '</option>';
+          }
+          $("select#TaskList").html(options);
+        })
+    }
+</script>
+
+<script>
+    function ChangeRunValue(val) {  
+        var link = document.getElementById("RunNewTask"); 
+        var href = link.getAttribute("href");
+        if (href.includes("RunTask/")) {
+            var lastIndex = href.lastIndexOf('/');
+            href = href.substr(0, lastIndex);            
+            link.setAttribute("href", href + "/" + val);
+        }
+        else {            
+            link.setAttribute("href", href + "/" + val);
+        }
+    }
+</script>
+
+

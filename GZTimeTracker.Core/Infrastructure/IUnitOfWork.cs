@@ -21,6 +21,9 @@ namespace GZIT.GZTimeTracker.Core.Infrastructure
         IRoleRepository RoleRepository { get; }
         IRepository<SystemRoleEntity> SystemRoleRepository { get; }
         IRepository<SystemRoleActionsEntity> SystemRoleActionsRepository { get; }
+        IRepository<UserInRoleEntity> UserInRoleRepository { get; }
+        IRepository<RunningTaskEntity> RunningTaskRepository { get; }
+        IRepository<SpendTimeEntity> SpendTimeRepository { get; }
 
         void BeginTransaction();
         void Commit();

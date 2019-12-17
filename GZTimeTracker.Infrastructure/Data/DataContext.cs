@@ -37,6 +37,8 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
         public DbSet<CustomerRolesEntity> CustomerRoles { get; set; }
         public DbSet<CustomerRoleActionsEntity> CustomerRoleActions { get; set; }
         public DbSet<UserInRoleEntity> UserInRoles { get; set; }
+        public DbSet<RunningTaskEntity> RunningTasks { get; set; }
+        public DbSet<SpendTimeEntity> SpendTimes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

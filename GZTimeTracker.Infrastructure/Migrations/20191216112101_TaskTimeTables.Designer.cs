@@ -4,14 +4,16 @@ using GZIT.GZTimeTracker.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GZIT.GZTimeTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191216112101_TaskTimeTables")]
+    partial class TaskTimeTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -225,59 +227,6 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Project");
-                });
-
-            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.RunningTaskEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("StarTimeUTC")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("TaskId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TaskId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("RunningTasks");
-                });
-
-            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.SpendTimeEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<TimeSpan>("SpandedTime")
-                        .HasColumnType("time");
-
-                    b.Property<int>("TaskId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TaskId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("SpendTimes");
                 });
 
             modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.SystemInformationEntity", b =>
@@ -690,36 +639,6 @@ namespace GZIT.GZTimeTracker.Infrastructure.Migrations
                     b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.UserEntity", "Owner")
                         .WithMany("Projets")
                         .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.RunningTaskEntity", b =>
-                {
-                    b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.TaskEntity", "Task")
-                        .WithMany()
-                        .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.UserEntity", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("GZIT.GZTimeTracker.Core.Infrastructure.Entities.SpendTimeEntity", b =>
-                {
-                    b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.TaskEntity", "Task")
-                        .WithMany()
-                        .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GZIT.GZTimeTracker.Core.Infrastructure.Entities.UserEntity", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

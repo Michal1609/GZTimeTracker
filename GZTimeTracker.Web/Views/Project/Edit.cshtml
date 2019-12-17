@@ -34,7 +34,7 @@
                 <input asp-for="@Model.Project.EndTimeUTC" class="form-control" />
                 <span asp-validation-for="@Model.Project.EndTimeUTC" class="text-danger"></span>
             </div>
-            <h3>@Localizer["Project.View.Tasks"]</h3>
+            <h3>@Localizer["Project.View.Edit.Tasks"]</h3>
 
             @if (@Model.Project.Tasks != null)
             {
@@ -57,7 +57,7 @@
 
         <select name="Project.ClientId" class="form-control">
             @{
-                if (Model.Project.ClientId != 0)
+                if (Model.Project.ClientId != null &&  Model.Project.ClientId > 0)
                 {
                     <option value="@Model.Project.ClientId">@Model.Clients.FirstOrDefault(x => x.Id == Model.Project.ClientId).Name</option>
                 }

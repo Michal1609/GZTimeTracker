@@ -33,6 +33,7 @@ using GZIT.GZTimeTracker.Infrastructure.Services;
 using GZTimeTracker.Web.Framework.Instalation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using GZTimeTracker.Web.Framework.Cache;
 
 namespace GZTimeTracker.Web
 {
@@ -122,9 +123,10 @@ namespace GZTimeTracker.Web
             app.UseRouting();
 
             app.UseAuthentication();
-            app.UseAuthorization();
+            //app.UseAuthorization();
             
             app.UseRouting();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -134,6 +136,7 @@ namespace GZTimeTracker.Web
             });
 
             Installation(app);
+            CacheData(app);
         }
 
         private void Installation(IApplicationBuilder app)
@@ -141,7 +144,7 @@ namespace GZTimeTracker.Web
             // Create DB from migrations if not exist
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
-                Configuration.GetSection("");
+                //Configuration.GetSection("");
                 var context = serviceScope.ServiceProvider.GetService<DataContext>();
                 var unitOfWork = serviceScope.ServiceProvider.GetRequiredService<IUnitOfWork>();
                 var locOptions = serviceScope.ServiceProvider.GetRequiredService<IOptions<RequestLocalizationOptions>>();
@@ -150,6 +153,17 @@ namespace GZTimeTracker.Web
                 installService.Install();
                 
             }            
+        }
+
+        private void CacheData(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var unitOfWork = serviceScope.ServiceProvider.GetRequiredService<IUnitOfWork>();
+                CacheService cacheService = new CacheService(unitOfWork);
+                cacheService.LoadStartupData();
+            }
+            
         }
     }
 }

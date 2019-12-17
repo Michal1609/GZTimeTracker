@@ -27,6 +27,9 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
         private IRoleRepository _roleRepository;
         private IRepository<SystemRoleEntity> _systemRoleRepositoryRepository;
         private IRepository<SystemRoleActionsEntity> _systemRoleAction;
+        private IRepository<UserInRoleEntity> _userInRoleRepository;
+        private IRepository<RunningTaskEntity> _runningTaskRepository;
+        private IRepository<SpendTimeEntity> _spendTimeRepository;
 
         public UnitOfWork(DataContext context)
         {
@@ -188,6 +191,42 @@ namespace GZIT.GZTimeTracker.Infrastructure.Data
                     _systemRoleAction = new Repository<SystemRoleActionsEntity>(_context);
                 }
                 return _systemRoleAction;
+            }
+        }
+
+        public IRepository<UserInRoleEntity> UserInRoleRepository
+        {
+            get
+            {
+                if (_userInRoleRepository == null)
+                {
+                    _userInRoleRepository = new Repository<UserInRoleEntity>(_context);
+                }
+                return _userInRoleRepository;
+            }
+        }
+
+        public IRepository<RunningTaskEntity> RunningTaskRepository
+        {
+            get
+            {
+                if (_runningTaskRepository == null)
+                {
+                    _runningTaskRepository = new Repository<RunningTaskEntity>(_context);
+                }
+                return _runningTaskRepository;
+            }
+        }
+
+        public IRepository<SpendTimeEntity> SpendTimeRepository
+        {
+            get
+            {
+                if (_spendTimeRepository == null)
+                {
+                    _spendTimeRepository = new Repository<SpendTimeEntity>(_context);
+                }
+                return _spendTimeRepository;
             }
         }
 

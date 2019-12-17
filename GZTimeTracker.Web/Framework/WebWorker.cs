@@ -5,10 +5,10 @@ using System.Linq;
 
 namespace GZTimeTracker.Web.Framework
 {
-    public class WebWorker
-    {        
+    public static class WebWorker
+    {
+        public static IList<SystemRoleEntity> SystemRoles { get; set; }
         public static IList<LanguageEntity> InstalledLanguages { get; set; }
-
         public static int GetLanguageIdForCode(string languageCode)
         {
            return (from row in WebWorker.InstalledLanguages
@@ -16,5 +16,6 @@ namespace GZTimeTracker.Web.Framework
                               select row.Id).FirstOrDefault();
 
         }
+       
     }
 }

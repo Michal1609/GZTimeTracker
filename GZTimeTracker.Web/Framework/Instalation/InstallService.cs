@@ -76,7 +76,7 @@ namespace GZTimeTracker.Web.Framework.Instalation
         private void SetSupportedLanguages()
         {
             var languages = _context.Language.ToList();
-            WebWorker.InstalledLanguages = languages;
+            
             CultureInfo[] cultureInfos = new CultureInfo[languages.Count];
             for (int i = 0; i < languages.Count; i++)
             {

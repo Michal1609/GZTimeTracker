@@ -16,6 +16,10 @@ namespace GZIT.GZTimeTracker.Web.Framwork.Mapping
             CreateMap<TaskEntity, TaskModel>();
             CreateMap<ClientEntity, ClientModel>();
             CreateMap<ClientModel, ClientEntity>();
+            CreateMap<TaskModel, TaskEntity>();
+            CreateMap<TaskEntity, TaskModel>();
+            CreateMap<RunningTaskEntity, RunningTaskModel>();
+            CreateMap<RunningTaskModel, RunningTaskEntity>();
         }
     }
 }

@@ -33,7 +33,11 @@
       "Name": "Navigation.Home"
     },
     {
-      "Value": "Projkty",
+      "Value": "Časy",
+      "Name": "Navigation.TimeMeasure"
+    },
+    {
+      "Value": "Projekty",
       "Name": "Navigation.Projects"
     },
     {
@@ -113,6 +117,18 @@
       "Name": "UserModel.Team"
     },
     {
+      "Value": "Id",
+      "Name": "RunningTaskModel.Id"
+    },
+    {
+      "Value": "Úloha",
+      "Name": "RunningTaskModel.Task"
+    },
+    {
+      "Value": "Čas spuštění",
+      "Name": "RunningTaskModel.StartTime"
+    },
+    {
       "Value": "Zákazníci",
       "Name": "UserModel.Clients"
     },
@@ -130,7 +146,7 @@
     },
     {
       "Value": "Smazat",
-      "Name": "View.Project-Index.Delete"
+      "Name": "View.Project.Index.Delete"
     },
     {
       "Value": "Detail",
@@ -143,6 +159,10 @@
     {
       "Value": "Uložit",
       "Name": "View.Project.Edit.Save"
+    },
+    {
+      "Value": "Seznam úloh",
+      "Name": "Project.View.Edit.Tasks"
     },
     {
       "Value": "Založit úlohu",
@@ -223,6 +243,50 @@
     {
       "Value": "Založit zákazníka",
       "Name": "Views.Client.Index.CreateClient"
+    },
+    {
+      "Value": "Vyberte projekt...",
+      "Name": "Views.Time.Index.SelectProject"
+    },
+    {
+      "Value": "Vyberte úlohu...",
+      "Name": "Views.Time.Index.SelectTask"
+    },
+    {
+      "Value": "Dnes spuštěné úlohy",
+      "Name": "Views.Time.Index.TodaysTasks"
+    },
+    {
+      "Value": "Id",
+      "Name": "Views.Time.Index.TaskId"
+    },
+    {
+      "Value": "Projekt",
+      "Name": "Views.Time.Index.ProjectCode"
+    },
+    {
+      "Value": "Úloha",
+      "Name": "Views.Time.Index.TaskName"
+    },
+    {
+      "Value": "Celkový strávený čas",
+      "Name": "Views.Time.Index.SpendTime"
+    },
+    {
+      "Value": "Status",
+      "Name": "Views.Time.Index.Status"
+    },
+    {
+      "Value": "Spustit",
+      "Name": "Views.Time.Index.Start"
+    },
+    {
+      "Value": "Stop",
+      "Name": "Views.Time.Index.Stop"
+    },
+    {
+      "Value": "Přidat úkol",
+      "Name": "Views.Time.Index.AddTask"
     }
   ]
 }

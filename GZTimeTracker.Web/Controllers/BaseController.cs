@@ -12,6 +12,7 @@ using GZTimeTracker.Core.Web;
 using GZTimeTracker.Web.Framework;
 using Microsoft.AspNetCore.Mvc;
 using GZIT.GZTimeTracker.Core.Domain;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace GZTimeTracker.Web.Controllers
 {
@@ -51,6 +52,6 @@ namespace GZTimeTracker.Web.Controllers
         {
             return _roleServices.HasUserPrivilegia(userId, projectId, action);
                        
-        }
+        }        
     }
 }

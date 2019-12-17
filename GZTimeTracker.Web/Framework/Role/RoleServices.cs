@@ -38,5 +38,22 @@ namespace GZTimeTracker.Web.Framework.Role
                 return _unitOfWork.RoleRepository.IsUserAuthorizeForActionInCustomerRole(userRole.Id, action);
             }
         }
+    
+        public void SetRoleForNewProjectAndSave(int userId, int projectId)
+        {
+            var adminRoleId = (from row in WebWorker.SystemRoles
+                               where row.Name.ToLower() == "admin"
+                               select row.Id).First();
+
+            _unitOfWork.UserInRoleRepository.Insert(new UserInRoleEntity()
+            {
+                UserId = userId,
+                ProjectId = projectId,
+                RoleId = adminRoleId,
+                IsSystemRole = true
+            });
+
+            _unitOfWork.Save();
+        }
     }
 }

@@ -17,11 +17,13 @@ using GZTimeTracker.Web.Framework.Repositories;
 using GZIT.GZTimeTracker.Core.Domain;
 using GZIT.GZTimeTracker.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace GZTimeTracker.Web.Controllers
 {
     [AutoValidateAntiforgeryToken]
     [Authorize]
+    
     public class ProjectController : BaseController
     {        
         private readonly IMapper _mapper;
@@ -39,8 +41,7 @@ namespace GZTimeTracker.Web.Controllers
        
         [HttpGet]
         public IActionResult Index()
-        {           
-
+        {            
             IList<ProjectModel> projects = new List<ProjectModel>();
 
             var owner = GetUser();
@@ -242,7 +243,7 @@ namespace GZTimeTracker.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
            
-        }
+        }       
     }
     
 }
